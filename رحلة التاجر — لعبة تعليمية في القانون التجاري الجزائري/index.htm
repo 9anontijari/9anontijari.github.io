@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>رحلة التاجر — لعبة تعليمية في القانون التجاري الجزائري</title>
+<style>
+:root{--navy:#14304a;--navy2:#1f4a6e;--teal:#0e7c7b;--gold:#b98a2e;--bg:#f4f1ea;--card:#fff;--ink:#1d2733;--muted:#5c6b7a;--ok:#1b7f4b;--okbg:#e8f5ee;--bad:#b3342f;--badbg:#fbeceb;--warn:#8a5a00;--warnbg:#fff6e0;--line:#e2ddd0;--r:14px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI","Noto Naskh Arabic","Noto Sans Arabic",Tahoma,"Traditional Arabic",Arial,sans-serif;line-height:1.9;font-size:17px}
+h1,h2,h3{line-height:1.5;margin:.2em 0 .5em;color:var(--navy)}
+p{margin:.5em 0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.shell{max-width:980px;margin:0 auto;padding:18px 16px 60px}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:20px;padding:30px 26px;position:relative;overflow:hidden}
+.hero h1{color:#fff;font-size:1.9rem;margin:.1em 0}
+.hero .sub{color:#e5d3a4;font-size:1.1rem;margin:0 0 14px}
+.hero .logo{font-size:2.6rem;line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:3px 14px;font-size:.88rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-top:16px;box-shadow:0 1px 3px rgba(20,48,74,.06)}
+.card h2{font-size:1.25rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:720px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}.hero h1{font-size:1.5rem}}
+@media(max-width:460px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-weight:600;font-size:.95rem;color:var(--navy)}
+.field input,.field select,.field textarea{border:1.5px solid #cfc8b6;border-radius:10px;padding:9px 12px;background:#fffdf8;min-height:44px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid rgba(14,124,123,.25);border-color:var(--teal)}
+.field .err{color:var(--bad);font-size:.85rem;min-height:1.2em}
+.req{color:var(--bad)}
+.btn{border:0;border-radius:11px;padding:10px 20px;font-weight:700;background:var(--navy);color:#fff;min-height:44px;transition:.15s}
+.btn:hover{background:var(--navy2)}
+.btn.teal{background:var(--teal)}.btn.gold{background:var(--gold)}
+.btn.ghost{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+.btn.danger{background:var(--bad)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.big{font-size:1.1rem;padding:12px 28px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.row.sp{justify-content:space-between}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.note{background:var(--warnbg);border:1px solid #ecd9a6;color:var(--warn);border-radius:10px;padding:10px 14px;font-size:.92rem}
+.info{background:#eef5fb;border:1px solid #cfe0ee;border-radius:10px;padding:10px 14px}
+ul.rules{padding-inline-start:20px;margin:.4em 0}ul.rules li{margin:.25em 0}
+.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--navy);color:#fff;border-radius:14px;padding:10px 16px}
+.top b{color:#e5d3a4}
+.pbar{height:10px;background:#d9e3ec;border-radius:99px;overflow:hidden;margin-top:12px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .4s}
+ol.map{list-style:none;padding:0;margin:14px 0 0;display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+ol.map li{flex:1 0 120px}
+.node{width:100%;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:8px 8px;text-align:center;font-size:.82rem;line-height:1.5;min-height:64px}
+.node b{display:inline-flex;width:26px;height:26px;border-radius:50%;align-items:center;justify-content:center;background:#e9e4d6;color:var(--navy);margin-bottom:2px}
+.node.cur{border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,124,123,.18)}
+.node.done b{background:var(--ok);color:#fff}
+.node.locked,.node.skip{opacity:.5;cursor:not-allowed}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+.dot{width:30px;height:30px;border-radius:50%;border:1.5px solid #cfc8b6;background:#fff;font-size:.8rem;padding:0;font-weight:700}
+.dot.cur{border-color:var(--teal);background:var(--teal);color:#fff}
+.dot.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.dot.c2{background:var(--warnbg);border-color:var(--gold);color:var(--warn)}
+.dot.bad{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.dot[disabled]{opacity:.4;cursor:not-allowed}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.tag{font-size:.78rem;background:#eef2f6;color:var(--navy);border-radius:999px;padding:1px 11px;font-weight:600}
+.tag.gold{background:#f8efd8;color:#7a5a12}
+.qtext{font-size:1.1rem;font-weight:600;margin:.4em 0 .8em;color:var(--ink)}
+.opts{display:grid;gap:9px}
+.opts.tf{grid-template-columns:1fr 1fr}
+.opt{display:flex;gap:11px;align-items:flex-start;text-align:start;background:#fffdf8;border:1.5px solid #cfc8b6;border-radius:12px;padding:10px 14px;min-height:46px;width:100%}
+.opt:hover:not([disabled]){border-color:var(--teal);background:#f3fbfa}
+.opt .mark{flex:0 0 22px;height:22px;border:2px solid #9aa7b3;border-radius:50%;margin-top:3px;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800}
+.opt.multi .mark{border-radius:6px}
+.opt.sel{border-color:var(--teal);background:#e9f6f5}
+.opt.sel .mark{background:var(--teal);border-color:var(--teal);color:#fff}
+.opt.sel .mark::after{content:"✓"}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.ok .mark{background:var(--ok);border-color:var(--ok);color:#fff}.opt.ok .mark::after{content:"✓"}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.opt.bad .mark{background:var(--bad);border-color:var(--bad);color:#fff}.opt.bad .mark::after{content:"✗"}
+.opt.wrongsel{border-color:var(--bad);background:var(--badbg)}
+.opt[disabled]{cursor:default;color:inherit}
+table.mt{width:100%;border-collapse:collapse}
+table.mt td{border:1px solid var(--line);padding:8px 10px;vertical-align:middle}
+table.mt td:first-child{width:62%;background:#faf8f2}
+table.mt select{width:100%;min-height:42px;border:1.5px solid #cfc8b6;border-radius:9px;padding:5px 8px;background:#fffdf8}
+table.mt tr.ok td{background:var(--okbg)}table.mt tr.bad td{background:var(--badbg)}
+.fill{font-size:1.08rem;line-height:2.6}
+.fill select{min-height:40px;border:1.5px solid #cfc8b6;border-radius:9px;padding:3px 8px;margin:0 4px;background:#fffdf8}
+.fill select.ok{border-color:var(--ok);background:var(--okbg)}.fill select.bad{border-color:var(--bad);background:var(--badbg)}
+textarea.short{width:100%;min-height:110px;border:1.5px solid #cfc8b6;border-radius:12px;padding:10px 12px;background:#fffdf8;resize:vertical}
+.sortwrap{display:grid;gap:12px}
+.pool,.bin{min-height:56px;border:2px dashed #b8b09b;border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.bin{background:#faf8f2}.bin h4{width:100%;margin:0;font-size:.95rem;color:var(--navy)}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.bins{grid-template-columns:1fr}}
+.chipi{border:1.5px solid var(--navy2);background:#fff;border-radius:10px;padding:5px 12px;font-size:.95rem;cursor:grab}
+.chipi.sel{background:var(--teal);color:#fff;border-color:var(--teal)}
+.chipi.ok{background:var(--okbg);border-color:var(--ok)}.chipi.bad{background:var(--badbg);border-color:var(--bad)}
+.fb{border-radius:12px;padding:12px 16px;margin-top:14px}
+.fb.ok{background:var(--okbg);border:1px solid #a8d8bf}
+.fb.c2{background:var(--warnbg);border:1px solid #ecd9a6}
+.fb.bad{background:var(--badbg);border:1px solid #e6b3b0}
+.fb.hint{background:#eef5fb;border:1px solid #cfe0ee}
+.fb h4{margin:0 0 4px;font-size:1.02rem}
+.basis{font-size:.92rem;color:var(--navy);margin-top:6px}
+.timer{display:inline-flex;gap:6px;align-items:center;font-weight:800;background:#fff;border:2px solid var(--gold);color:var(--warn);border-radius:10px;padding:2px 12px;font-variant-numeric:tabular-nums}
+.timer.low{border-color:var(--bad);color:var(--bad)}
+.scene{background:linear-gradient(180deg,#f6f9fc,#fff);border-inline-start:6px solid var(--teal)}
+.acc{border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#fff;overflow:hidden}
+.acc>button.hd{width:100%;text-align:start;background:#faf8f2;border:0;padding:12px 16px;font-weight:700;display:flex;justify-content:space-between;align-items:center;color:var(--navy);min-height:48px}
+.acc .bd{padding:6px 18px 16px;border-top:1px solid var(--line)}
+.acc p.ex{background:#f3fbfa;border-radius:8px;padding:6px 12px}
+.qc{background:#f8f6ef;border-radius:10px;padding:10px 14px;margin-top:10px}
+.qc .o{display:block;width:100%;text-align:start;background:#fff;border:1.5px solid #cfc8b6;border-radius:9px;padding:6px 12px;margin:5px 0}
+.qc .o.ok{border-color:var(--ok);background:var(--okbg)}.qc .o.bad{border-color:var(--bad);background:var(--badbg)}
+.kpi{background:#faf8f2;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.kpi b{display:block;font-size:1.5rem;color:var(--navy);line-height:1.3}
+.kpi span{font-size:.85rem;color:var(--muted)}
+.score{font-size:3rem;font-weight:800;color:var(--teal);line-height:1.2}
+table.rt{width:100%;border-collapse:collapse;font-size:.95rem}
+table.rt th,table.rt td{border:1px solid var(--line);padding:6px 10px;text-align:center}
+table.rt th{background:#eef2f6;color:var(--navy)}
+table.rt td:first-child{text-align:start}
+.modalbg{position:fixed;inset:0;background:rgba(20,48,74,.55);display:flex;align-items:center;justify-content:center;padding:14px;z-index:50}
+.modal{background:#fff;border-radius:16px;max-width:680px;width:100%;max-height:88vh;overflow:auto;padding:20px 24px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.toast{position:fixed;bottom:18px;inset-inline:0;margin:auto;width:max-content;max-width:92vw;background:var(--navy);color:#fff;padding:10px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1}
+.banner{background:var(--badbg);border:1px solid #e6b3b0;color:var(--bad);padding:8px 14px;border-radius:10px;margin-top:10px;font-size:.9rem}
+#printRoot{display:none}
+/* ---- certificate ---- */
+.certWrap{position:relative;width:100%;overflow:hidden;margin-top:14px;background:#d8d3c4;border-radius:12px}
+.cert{position:absolute;top:0;right:0;width:277mm;height:190mm;background:#fffdf6;color:#1d2733;font-family:"Segoe UI","Noto Naskh Arabic","Noto Sans Arabic",Tahoma,"Traditional Arabic",Arial,sans-serif;padding:5mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;line-height:1.6}
+.cframe{height:100%;border:2.2mm double var(--gold);padding:2.5mm}
+.cin{height:100%;border:.6mm solid var(--navy);padding:6mm 12mm;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.cin::before{content:"⚖";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:120mm;color:rgba(20,48,74,.045);pointer-events:none}
+.c-logo{font-size:15mm;line-height:1;color:var(--gold)}
+.c-center{font-size:15pt;font-weight:700;color:var(--navy)}
+.c-sub{font-size:10.5pt;color:#5c6b7a}
+.cert h1{font-size:30pt;color:var(--navy);margin:3mm 0 1mm;letter-spacing:0}
+.c-to{font-size:12.5pt;margin:0}
+.c-name{font-size:27pt;font-weight:800;color:var(--teal);border-bottom:.5mm solid var(--gold);padding:0 14mm;margin:1mm 0 2mm;min-width:120mm}
+.c-meta{font-size:12pt;margin:0 0 1.5mm}
+.c-body{font-size:12.5pt;margin:0;max-width:225mm}
+.c-score{display:flex;gap:6mm;justify-content:center;margin:3mm 0;flex-wrap:wrap}
+.c-score div{border:.4mm solid var(--navy);border-radius:2mm;padding:1.2mm 6mm;font-size:12pt;background:#fff}
+.c-score b{color:var(--navy);font-size:14pt}
+.c-foot{display:flex;justify-content:space-between;align-items:flex-end;width:100%;margin-top:auto;font-size:11pt;gap:8mm}
+.c-foot>div{flex:1;text-align:center}
+.sigline{border-top:.3mm solid #1d2733;margin:11mm 8mm 1mm}
+.sealbox{width:30mm;height:22mm;border:.4mm dashed #8a96a3;margin:0 auto 1mm;display:flex;align-items:center;justify-content:center;font-size:8pt;color:#8a96a3}
+.c-note{font-size:8.5pt;color:#5c6b7a;margin-top:2mm}
+.docprint{font-size:11pt;line-height:1.6;padding:0}
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  html,body{background:#fff!important}
+  body>*:not(#printRoot){display:none!important}
+  #printRoot{display:block!important}
+  #printRoot .cert{position:static;transform:none!important;margin:0 auto}
+  body.pr-doc #printRoot{font-size:11pt}
+  .card{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div id="app"><div class="shell"><div class="top"><div><b>⚖ رحلة التاجر</b> — العيدي سيسطة الياس</div><div class="small">التقدم: 100%</div></div><div class="pbar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><i style="width:100%"></i></div><section class="card"><h2>شهادة الإنجاز</h2><div class="row"><button class="btn gold" data-a="printCert">طباعة الشهادة</button><button class="btn teal" data-a="pdfCert">حفظ الشهادة بصيغة PDF</button><button class="btn ghost" data-a="backResults">العودة إلى النتائج</button></div><div class="certWrap" id="certWrap" style="height: 619.291px;"><div class="cert" style="transform: scale(0.862523); transform-origin: right top 0px;"><div class="cframe"><div class="cin"><div class="c-logo">⚖</div><div class="c-center">المعهد الوطني المتخصص في التكوين المهني العامري بوجمعة سكيكدة</div><div class="c-sub">لعبة تعليمية تفاعلية في القانون التجاري الجزائري</div><h1>شهادة إنجاز في التعلم التفاعلي</h1><p class="c-to">تشهد هذه الوثيقة التعليمية بأن المتربص(ة)</p><div class="c-name">العيدي سيسطة الياس</div><p class="c-meta">الدفعة: أكتوبر2026 &nbsp;|&nbsp; الفوج: الاول &nbsp;|&nbsp; التخصص: تسيير المخزونات واللوجستيك</p><p class="c-body">قد أتمّ(ت) مراحل النشاط التعليمي التفاعلي: <b>«رحلة التاجر: شروط اكتساب الشركة صفة التاجر في القانون التجاري الجزائري»</b></p><div class="c-score"><div>العلامة النهائية: <b>18.68 / 20</b></div><div>النسبة المئوية: <b>93.4%</b></div><div>التقدير: <b>ممتاز</b></div></div><div class="c-foot"><div>تاريخ الإنجاز:<br><b>19/10/2026</b></div><div>الأستاذ المشرف:<br><b>العيدي سيسطة الياس</b><div class="sigline"></div>التوقيع</div><div><div class="sealbox">مساحة الختم</div>ختم المؤسسة (عند الاقتضاء)</div></div><div class="c-note">رقم الشهادة (داخلي، متولد محليًا): RT-20261019-JZ4YK — هذه شهادة إنجاز تعليمية صادرة عن النشاط، وليست دبلومًا ولا شهادة اعتماد رسمية.</div></div></div></div></div></section></div></div>
+<div id="modalRoot"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="printRoot"></div>
+<noscript><p style="padding:20px">هذه اللعبة تحتاج إلى تفعيل JavaScript في المتصفح.</p></noscript>
+<script>
+(function(){
+'use strict';
+
+/* ============ أدوات عامة ============ */
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+function clone(o){return JSON.parse(JSON.stringify(o))}
+var SK='rihlat_tajir_state_v1',CK='rihlat_tajir_settings_v1';
+var saveFailed=false;
+function lsGet(k){try{var v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){saveFailed=true;return false}}
+function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
+function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fmtDate(s){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?m[3]+'/'+m[2]+'/'+m[1]:esc(s||'')}
+function mmss(ms){ms=Math.max(0,Math.ceil(ms/1000));var m=Math.floor(ms/60),s=ms%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function num(x){return (Math.round(x*100)/100).toString()}
+function toast(msg){var t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(function(){t.classList.remove('show')},2800)}
+function norm(s){return String(s||'').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/\s+/g,' ').trim()}
+
+/* ============ الإعدادات الافتراضية ============ */
+var DEFAULTS={teacher:'أستاذ المقياس',center:'مركز التكوين المهني والتمهين',batch:'',group:'',specialty:'تسيير المخزونات واللوجستيك',
+ timersOn:true,theoryMin:0,peerSec:90,answerSec:180,total:20,secondPct:50,
+ th:{excellent:80,vgood:70,good:60,ok:50},mode:'learn',formative:true};
+var SET=Object.assign(clone(DEFAULTS),lsGet(CK)||{});
+SET.th=Object.assign(clone(DEFAULTS.th),SET.th||{});
+
+/* ============ محتوى الدرس (بطاقات المرحلة الأولى) ============ */
+var CARDS=[
+{id:'c1',t:'من هو التاجر؟ (المادة الأولى)',
+ h:'<p>نصّت المادة الأولى من القانون التجاري الجزائري على تعريف التاجر: <b>«يُعد تاجرًا كل شخص يقوم بأعمال تجارية بحرفيته، على سبيل الاعتياد.»</b></p><p>ومن هذا التعريف تُستخلص الشروط الواجب توافرها في الشخص حتى يكتسب صفة التاجر، فيخضع لأحكام القانون التجاري.</p><p class="ex"><b>مثال مبسط:</b> من يتولى تخزين السلع وبيعها لحسابه الخاص بصفة منتظمة ومتكررة، ويتخذ ذلك حرفة، تتوفر فيه الشروط الموضوعية لصفة التاجر.</p>',
+ qc:{q:'وفق المادة الأولى، يُعد تاجرًا كل شخص يقوم بأعمال تجارية…',o:['بحرفيته، على سبيل الاعتياد','مرة واحدة فقط','بأجر لدى الغير'],a:0}},
+{id:'c2',t:'شروط الشخص الطبيعي',
+ h:'<p>بالنسبة للشخص الطبيعي يُشترط شرطان:</p><ul><li><b>أولًا:</b> القيام بأعمال تجارية <b>بطريقة شخصية ومستقلة</b>، أي العمل لحسابه الخاص لا لحساب غيره.</li><li><b>ثانيًا:</b> القيام بها <b>على سبيل الاعتياد والاحتراف</b>، أي تكرارها بصفة مستمرة ومنتظمة واتخاذها حرفة.</li></ul><p class="ex"><b>مثال:</b> مورّد يشتري ويخزّن ويبيع السلع بانتظام لحسابه الخاص.</p>',
+ qc:{q:'ما الشرطان الأساسيان للشخص الطبيعي وفق المادة الأولى؟',o:['الاستقلال، ثم الاعتياد والاحتراف','الشكل القانوني، ثم القيد','العمل لحساب الغير، ثم العمل العارض'],a:0}},
+{id:'c3',t:'الاستقلال: لحسابه الخاص لا لحساب غيره',
+ h:'<p>النشاط التجاري يقوم على الائتمان وعلى تحمّل النتائج المترتبة عنه. لذلك فمن يعمل في <b>مركز تبعية</b> لرب العمل، ويخضع لتوجيهه ورقابته، لا يُعتبر تاجرًا؛ إذ لا يتحمل مخاطر الأعمال التجارية، والتبعية تتنافى مع الاستقلال الضروري لممارسة النشاط التجاري.</p><p>وعلى هذا الأساس فإن <b>مسيري الشركات لا يُعتبرون تجارًا</b>، لأنهم لا يمارسون الأعمال التجارية لحسابهم الخاص بل لحساب الشركة. فالصفة التجارية تُنسب إلى الشركة، لا إلى المسير أو الموظف العامل لديها.</p><p class="ex"><b>مثال:</b> موظف بأجر في متجر يخضع لرقابة صاحبه: ليس تاجرًا.</p>',
+ qc:{q:'موظف بأجر في متجر تجاري يخضع لرقابة صاحبه: هل هو تاجر؟',o:['لا، لأنه في مركز تبعية ولا يعمل لحسابه الخاص','نعم، لأنه يعمل في مجال تجاري','نعم، إذا كان أجره مرتفعًا'],a:0}},
+{id:'c4',t:'الاعتياد والاحتراف والعمل العارض',
+ h:'<p>لا يكفي القيام بعمل تجاري عابر. فالشخص الذي يقوم <b>بأعمال تجارية عارضة</b> لا يكتسب صفة التاجر.</p><p><b>الاعتياد</b> عنصر مادي، مفاده تكرار القيام بالأعمال التجارية بصفة مستمرة ومنتظمة. و<b>الاحتراف</b> هو اتخاذها حرفة. ويجب أن يتوافر العنصران معًا.</p><p class="ex"><b>مثال:</b> من باع مرة واحدة بضاعة موروثة في عملية عارضة لا يكتسب صفة التاجر.</p>',
+ qc:{q:'من قام بعمل تجاري عارض واحد، هل يكتسب صفة التاجر؟',o:['لا، لأن الاعتياد والاحتراف غير متوفرين','نعم، فور قيامه بالعمل','نعم، إذا كانت قيمة العمل كبيرة'],a:0}},
+{id:'c9',t:'الشرط الموضوعي والشرط الشكلي',
+ h:'<ul><li><b>الشرط الموضوعي:</b> شرط يتعلق بطبيعة النشاط أو بموضوع الشركة (مثل: هل النشاط تجاري؟).</li><li><b>الشرط الشكلي:</b> شرط يتعلق بالشكل القانوني أو بإجراء إداري، كالقيد في السجل التجاري.</li></ul><p>لا يكفي أن يجمع الشخص الطبيعي أو الشركة الشروط الموضوعية لصفة التاجر؛ بل يجب أن يُستوفى الشرط الشكلي المتمثل في القيد، حتى تتم ممارسة النشاط التجاري في إطار قانوني سليم.</p>',
+ qc:{q:'القيد في السجل التجاري شرط…',o:['شكلي','موضوعي','لا علاقة له بالتجارة'],a:0}},
+{id:'c5',t:'الشخص المعنوي: خاص وعام',
+ h:'<p><b>الشخص المعنوي</b> كيان قانوني له ذمة مالية مستقلة، كالشركات والمؤسسات العمومية. وينقسم إلى:</p><ul><li><b>شخص معنوي خاص:</b> هو الشركات التجارية.</li><li><b>شخص معنوي عام:</b> الجماعات العمومية (الدولة والولاية والبلدية) والهيئات العمومية (كالجامعات والمستشفيات).</li></ul>',
+ qc:{q:'الشركات التجارية تدخل ضمن…',o:['الشخص المعنوي الخاص','الشخص المعنوي العام','الشخص الطبيعي'],a:0}},
+{id:'c6',t:'الشركات التجارية بحسب الشكل (المادتان 3 و544)',
+ h:'<p>نصّت <b>المادة الثالثة</b> على أن الشركات تُعد بمثابة أعمال تجارية بحسب الشكل. ونصّت <b>المادة 544</b>: <b>«تُعد شركة التضامن، وشركة التوصية البسيطة، وذات المسؤولية المحدودة، وشركة المساهمة، تجارية بحسب شكلها مهما كان موضوعها. ويُحدد الطابع التجاري للشركة إما بشكلها أو موضوعها.»</b></p><ul><li><b>الأشكال الأربعة:</b> التضامن، التوصية البسيطة، ذات المسؤولية المحدودة، المساهمة.</li><li>إذا كانت الشركة من هذه الأشكال، فشكلها وحده يكفي لإضفاء الصبغة التجارية عليها دون البحث في طبيعة نشاطها.</li><li><b>مثال:</b> شركة ذات مسؤولية محدودة هدفها الزراعة تظل تجارية بحسب الشكل.</li><li><b>الاستثناء:</b> عبارة «إما بشكلها أو موضوعها»؛ فإن لم تكن الشركة تجارية بحسب شكلها فلا يُحدد طابعها التجاري إلا بموضوعها (طبيعة نشاطها).</li></ul>',
+ qc:{q:'شركة ذات مسؤولية محدودة هدفها الزراعة…',o:['تجارية بحسب الشكل مهما كان موضوعها','غير تجارية لأن الزراعة ليست تجارة','تجارية فقط بعد سنة من النشاط'],a:0}},
+{id:'c7',t:'الشخص المعنوي العام',
+ h:'<p>هدفه الأساسي تحقيق <b>المنفعة العامة</b>، لذلك لا يكتسب صفة التاجر لأن عمله لا يهدف إلى تحقيق الربح.</p><p>لكن عندما <b>تتدخل الدولة في المجال الاقتصادي</b> — كإنشاء مؤسسات عمومية اقتصادية، أو الاشتراك في شركات ذات رأس مال مختلط وطني كان أو أجنبي — فهي تهدف حينئذ إلى المضاربة وتحقيق الربح، ويُعد عملها عملًا تجاريًا.</p>',
+ qc:{q:'متى يُعد عمل الدولة عملًا تجاريًا؟',o:['عندما تتدخل في المجال الاقتصادي بهدف المضاربة والربح','كلما أدارت مرفقًا عموميًا','لا يُعد تجاريًا أبدًا'],a:0}},
+{id:'c8',t:'القيد في السجل التجاري',
+ h:'<p>لا يكتمل الحديث عن شروط اكتساب صفة التاجر دون التوقف عند <b>القيد في السجل التجاري</b>، وهو شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني.</p><ul><li>يمنح النشاط <b>المشروعية في مواجهة الغير</b>.</li><li>يجعل ممارسة التجارة <b>خاضعة لرقابة الإدارة</b>.</li><li>يسهّل على المتعاملين <b>معرفة هوية التاجر وحالته القانونية</b> قبل التعاقد معه.</li></ul><p>ومن ثمة لا يكفي أن تجمع الشركة أو الشخص الطبيعي الشروط الموضوعية، بل يجب استيفاء الشرط الشكلي (القيد).</p>',
+ qc:{q:'أي مما يلي من آثار القيد في السجل التجاري؟',o:['يسهّل معرفة هوية التاجر وحالته القانونية قبل التعاقد','يعفي من شرط الاعتياد','يحوّل الشركة المدنية إلى شركة مساهمة'],a:0}}
+];
+var CM={};CARDS.forEach(function(c){CM[c.id]=c});
+
+var TOPICS={
+ nat:{n:'شروط الشخص الطبيعي',tip:'راجع شروط المادة الأولى: الاستقلال، والاعتياد والاحتراف.',card:'c2'},
+ form:{n:'الشركات التجارية بحسب الشكل',tip:'راجع المادتين 3 و544: الأشكال الأربعة، وعبارة «مهما كان موضوعها»، والاستثناء.',card:'c6'},
+ reg:{n:'القيد في السجل التجاري',tip:'راجع أهمية القيد بوصفه شرطًا شكليًا جوهريًا.',card:'c8'},
+ pub:{n:'الشخص المعنوي العام',tip:'راجع متى يُعد عمل الدولة تجاريًا عند تدخلها اقتصاديًا.',card:'c7'},
+ dist:{n:'التمييز بين المعيارين والصفات',tip:'راجع الفرق بين الشرط الموضوعي والشكلي، وبين صفة الشركة وصفة المسير.',card:'c9'}
+};
+
+/* ============ الأسئلة ============ */
+var QL=[];
+function Q(o){o.w=o.w||1;QL.push(o);return o}
+var TF=['صواب','خطأ'];
+
+/* ---- المرحلة 2: تحليل النصوص ---- */
+Q({id:'s2q1',stage:2,type:'multi',topic:'nat',card:'c2',
+ text:'اختر الشرطين اللذين يُستخلصان من المادة الأولى لاكتساب الشخص الطبيعي صفة التاجر:',
+ options:['القيام بأعمال تجارية بطريقة شخصية ومستقلة','القيام بها على سبيل الاعتياد والاحتراف','الخضوع لتوجيه رب العمل ورقابته','اتخاذ شكل شركة التضامن','القيام بعمل تجاري عارض واحد'],answer:[0,1],
+ hint:'الشرطان معًا يتعلقان بكيفية ممارسة النشاط: لحساب من؟ وبأي وتيرة؟',
+ why:'يُستخلص من المادة الأولى شرطان: القيام بالأعمال التجارية بطريقة شخصية ومستقلة (لحسابه الخاص لا لحساب غيره)، وعلى سبيل الاعتياد والاحتراف (تكرارها بصفة مستمرة ومنتظمة واتخاذها حرفة).',
+ basis:'المادة الأولى من القانون التجاري الجزائري'});
+Q({id:'s2q2',stage:2,type:'tf',topic:'nat',card:'c3',
+ text:'«موظف يعمل في متجر تجاري بأجر ويخضع لرقابة صاحبه» يكتسب صفة التاجر وفق المادة الأولى.',
+ options:TF,answer:1,keep:true,
+ hint:'اسأل نفسك: هل يعمل لحسابه الخاص أم لحساب غيره؟ ومن يتحمل مخاطر الأعمال التجارية؟',
+ why:'لا يكتسب صفة التاجر: عمله في مركز تبعية بالنسبة لرب العمل، ولا يتحمل مخاطر الأعمال التجارية، والتبعية تتنافى مع الاستقلال الضروري لممارسة النشاط التجاري؛ فهو يعمل لحساب غيره لا لحسابه الخاص.',
+ basis:'المادة الأولى (شرط الاستقلال)'});
+Q({id:'s2q3',stage:2,type:'multi',topic:'form',card:'c6',
+ text:'حدّد الأشكال القانونية الأربعة التي اعتبرتها المادة 544 تجارية بحسب الشكل:',
+ options:['شركة التضامن','شركة التوصية البسيطة','الشركة ذات المسؤولية المحدودة','شركة المساهمة','الشركة المدنية','البلدية'],answer:[0,1,2,3],
+ hint:'الشركة المدنية والجماعات العمومية ليست ضمن القائمة التي ذكرتها المادة 544.',
+ why:'الأشكال الأربعة الواردة في المادة 544: شركة التضامن، وشركة التوصية البسيطة، والشركة ذات المسؤولية المحدودة، وشركة المساهمة.',
+ basis:'المادة 544 من القانون التجاري الجزائري'});
+Q({id:'s2q4',stage:2,type:'mcq',topic:'form',card:'c6',
+ text:'شركة ذات مسؤولية محدودة هدفها الزراعة: هل تكتسب الصبغة التجارية؟',
+ options:['نعم، لأن المادة 544 تعدّها تجارية بحسب شكلها «مهما كان موضوعها»','لا، لأن الزراعة ليست نشاطًا تجاريًا','لا، إلا بعد إثبات أن نشاطها تجاري','نعم، لكن فقط إذا تحولت إلى نشاط تجاري كالتخزين'],answer:0,
+ hint:'ركّز على عبارة «مهما كان موضوعها» في المادة 544.',
+ why:'نعم تكتسب الصبغة التجارية: المادة 544 اعتبرت الشركة ذات المسؤولية المحدودة تجارية بحسب شكلها مهما كان موضوعها، أي أن الشكل القانوني وحده كاف دون الحاجة إلى البحث فيما إذا كان نشاطها (الزراعة هنا) تجاريًا أم لا.',
+ basis:'المادة 544 (عبارة «مهما كان موضوعها»)'});
+Q({id:'s2q5',stage:2,type:'fill',topic:'form',card:'c6',
+ text:'أكمل العبارة الواردة في المادة 544 المتعلقة بتحديد الطابع التجاري للشركة:',
+ tpl:'يُحدَّد الطابع التجاري للشركة إما بـ {0} أو بـ {1}.',
+ blanks:[['شكلها','موضوعها','قيدها في السجل','عدد شركائها'],['شكلها','موضوعها','قيدها في السجل','عدد شركائها']],answer:[0,1],
+ hint:'العبارة تشير إلى المعيارين: الشكلي ثم الموضوعي.',
+ why:'نص المادة: «ويُحدد الطابع التجاري للشركة إما بشكلها أو موضوعها». وهذا هو الاستثناء: إذا لم تكن الشركة تجارية بحسب شكلها، فلا يُحدد طابعها التجاري إلا بموضوعها (طبيعة نشاطها)، فيبقى المعيار الموضوعي حاكمًا للشركات غير المشمولة بالمعيار الشكلي.',
+ basis:'المادة 544 (الاستثناء من المعيار الشكلي)'});
+Q({id:'s2q6',stage:2,type:'match',topic:'dist',card:'c9',
+ text:'طابق كل عبارة بما يناسبها (جدول المقارنة بين الشخص الطبيعي والشركة):',
+ rows:['يشترط فيه الاعتياد والاحتراف والاستقلال','يكفي شكلها القانوني (أحد الأشكال الأربعة)','سنده القانوني: المادة الأولى','سنده القانوني: المادة الثالثة والمادة 544','طبيعة النشاط (الموضوع) جوهرية: يجب أن تكون الأعمال تجارية ومتكررة','لا دور للموضوع في الأشكال الأربعة: تكتسب الصفة مهما كان الموضوع'],
+ options:['الشخص الطبيعي','الشركة (الشخص المعنوي الخاص)'],answer:[0,1,0,1,0,1],
+ hint:'المادة الأولى تخص الشخص الطبيعي، والمادتان 3 و544 تخصان الشركة.',
+ why:'الشخص الطبيعي: المعيار الأساسي هو ممارسة الأعمال التجارية بحرفيته وعلى سبيل الاعتياد والاحتراف وباستقلال، والموضوع جوهري، وسنده المادة الأولى. الشركة (الخاصة): المعيار الأساسي هو الشكل القانوني، ولا دور للموضوع في الأشكال الأربعة، وسندها المادة الثالثة والمادة 544.',
+ basis:'المواد 1 و3 و544'});
+Q({id:'s2q7',stage:2,type:'short',topic:'reg',card:'c8',
+ text:'اكتب في سطر أو سطرين: ما أهمية القيد في السجل التجاري؟',
+ kw:{groups:[['مشروع','قانوني','شرعي'],['الغير','المتعامل','التعاقد'],['رقاب','الادار'],['هوي','حالته'],['شكلي','جوهري']],min:2},
+ model:'القيد شرط شكلي جوهري: يمنح النشاط المشروعية في مواجهة الغير، ويُخضع ممارسة التجارة لرقابة الإدارة، ويسهّل على المتعاملين معرفة هوية التاجر وحالته القانونية قبل التعاقد معه.',
+ hint:'فكّر في آثار القيد تجاه الغير، وتجاه الإدارة، وتجاه المتعاملين قبل التعاقد.',
+ why:'القيد في السجل التجاري هو ما يمنح النشاط المشروعية في مواجهة الغير، ويجعل ممارسة التجارة خاضعة لرقابة الإدارة، ويسهّل على المتعاملين معرفة هوية التاجر وحالته القانونية قبل التعاقد معه.',
+ basis:'قاعدة القيد في السجل التجاري (الشرط الشكلي الجوهري)'});
+Q({id:'s2q8',stage:2,type:'mcq',topic:'dist',card:'c9',
+ text:'أي صياغة تعبّر عن العلاقة بين الشرطين الموضوعي والشكلي في اكتساب صفة التاجر؟',
+ options:['تجتمع الشروط الموضوعية، ثم يلزم استيفاء الشرط الشكلي (القيد) لتتم ممارسة النشاط في إطار قانوني سليم','يغني الشرط الشكلي عن الموضوعي في جميع الحالات دون استثناء','يغني الشرط الموضوعي وحده عن القيد في السجل التجاري','القيد وحده كاف لاكتساب صفة التاجر دون أي شرط آخر'],answer:0,
+ hint:'الشرطان متكاملان: واحد يتعلق بطبيعة النشاط أو الشكل، والآخر بإجراء القيد.',
+ why:'لا يكفي أن يجمع الشخص الطبيعي أو الشركة الشروط الموضوعية، بل يجب استيفاء الشرط الشكلي المتمثل في القيد حتى تتم ممارسة النشاط التجاري في إطار قانوني سليم.',
+ basis:'المادة الأولى + المادة 544 + قاعدة القيد'});
+
+/* ---- المرحلة 3: التمييز ---- */
+Q({id:'s3q1',stage:3,type:'sort',topic:'dist',card:'c9',
+ text:'صنّف كل عنصر إلى «شرط موضوعي» أو «شرط شكلي»: اضغط على العنصر ثم على الخانة المناسبة (أو اسحبه إليها).',
+ cats:['شرط موضوعي','شرط شكلي'],
+ items:[['القيد في السجل التجاري',1],['الشكل القانوني للشركة (كشركة التضامن)',1],['الاعتياد والاحتراف',0],['الاستقلال في ممارسة النشاط',0],['طبيعة نشاط الشركة أو موضوعها',0]],
+ hint:'الشرط الشكلي يتعلق بالشكل القانوني أو بإجراء إداري، والموضوعي يتعلق بطبيعة النشاط.',
+ why:'الشرط الموضوعي يتعلق بطبيعة النشاط أو موضوع الشركة (الاستقلال، الاعتياد والاحتراف، طبيعة النشاط). أما الشرط الشكلي فيتعلق بالشكل القانوني أو بإجراء إداري كالقيد في السجل التجاري.',
+ basis:'تذكير بالمصطلحات: الشرط الموضوعي والشرط الشكلي'});
+Q({id:'s3q2',stage:3,type:'tf',topic:'nat',card:'c3',
+ text:'أمين مخزن في شركة لوجستيك يتقاضى أجرًا شهريًا ويعمل وفق تعليمات مسؤوليه، فهو تاجر لأنه يسيّر السلع والمخزونات.',
+ options:TF,answer:1,keep:true,
+ hint:'العمل في مجال تجاري لا يكفي وحده؛ انظر إلى مركز الشخص: مستقل أم تابع؟',
+ why:'ليس تاجرًا: يعمل في مركز تبعية لحساب الشركة وتحت توجيه مسؤوليه، فلا يمارس الأعمال التجارية لحسابه الخاص ولا يتحمل مخاطرها.',
+ basis:'المادة الأولى (شرط الاستقلال)'});
+Q({id:'s3q3',stage:3,type:'mcq',topic:'nat',card:'c4',
+ text:'شخص باع مرة واحدة فقط، وبصفة عابرة، كمية من سلعه الفائضة ثم لم يكرر ذلك. ما وضعه؟',
+ options:['لا يكتسب صفة التاجر لأن العمل العارض لا يحقق الاعتياد والاحتراف','يكتسب صفة التاجر لأنه قام بعمل تجاري','يكتسب صفة التاجر إذا قُيّد في السجل التجاري','يكتسب صفة التاجر بعد مرور سنة على العملية'],answer:0,
+ hint:'هل توفر عنصر التكرار المستمر والمنتظم واتخاذ النشاط حرفة؟',
+ why:'الشخص الذي يقوم بأعمال تجارية عارضة لا يكتسب صفة التاجر، إذ لا يكفي القيام بعمل تجاري عابر؛ ويجب أن يتوافر عنصر الاعتياد وعنصر الاحتراف معًا.',
+ basis:'المادة الأولى (شرط الاعتياد والاحتراف)'});
+Q({id:'s3q4',stage:3,type:'mcq',topic:'nat',card:'c2',
+ text:'شخص يشتري السلع ويخزنها ويبيعها بصفة منتظمة ومتكررة، لحسابه الخاص، ويتخذ ذلك حرفة. ما الذي يتحقق في حقه؟',
+ options:['تتوفر الشروط الموضوعية: الاستقلال والاعتياد والاحتراف (ويبقى استيفاء الشرط الشكلي: القيد)','لا تتوفر الشروط لأنه لم يؤسس شركة','تتوفر الشروط فقط إذا كان عمله عارضًا','لا يمكن الحكم عليه قبل أن يتخذ شكل شركة التضامن'],answer:0,
+ hint:'قارن الوضع بشرطي المادة الأولى؛ ثم تذكّر أن القيد شرط شكلي مستقل.',
+ why:'يعمل لحسابه الخاص (استقلال) وبصفة منتظمة ومتكررة ويتخذ ذلك حرفة (اعتياد واحتراف)، فتتوفر الشروط الموضوعية. ويبقى عليه استيفاء الشرط الشكلي: القيد في السجل التجاري.',
+ basis:'المادة الأولى + قاعدة القيد'});
+Q({id:'s3q5',stage:3,type:'tf',topic:'form',card:'c6',
+ text:'شركة توصية بسيطة موضوعها الفلاحة لا تُعد تجارية لأن موضوعها غير تجاري.',
+ options:TF,answer:1,keep:true,
+ hint:'هل شركة التوصية البسيطة من الأشكال الأربعة التي ذكرتها المادة 544؟',
+ why:'العبارة خاطئة: شركة التوصية البسيطة من الأشكال الأربعة التي تُعد تجارية بحسب شكلها مهما كان موضوعها، فلا يُبحث في كون نشاطها الفلاحي تجاريًا أم لا.',
+ basis:'المادة 544 («مهما كان موضوعها»)'});
+Q({id:'s3q6',stage:3,type:'mcq',topic:'form',card:'c6',
+ text:'شركة مدنية هدفها إدارة أموال عائلية. هل هي تجارية بحسب الشكل؟',
+ options:['لا، فهي ليست من الأشكال الأربعة الواردة في المادة 544، فيتحدد طابعها بموضوعها','نعم، لأن كل شركة تجارية بحسب الشكل دون استثناء','نعم، لأنها شخص معنوي له ذمة مالية مستقلة','لا، ولا يمكن أن يكون لها طابع تجاري مهما كان نشاطها'],answer:0,
+ hint:'قارن شكل الشركة المدنية بالأشكال الأربعة، ثم تذكّر عبارة «إما بشكلها أو موضوعها».',
+ why:'الشركة المدنية ليست من الأشكال التي عدّتها المادة 544 تجارية بحسب الشكل، فطابعها يُحدد بموضوعها.',
+ basis:'المادة 544 (الاستثناء: «إما بشكلها أو موضوعها»)'});
+Q({id:'s3q7',stage:3,type:'mcq',topic:'pub',card:'c7',
+ text:'بلدية تسيّر مرفقًا عموميًا لخدمة المنفعة العامة دون هدف الربح. هل تكتسب صفة التاجر؟',
+ options:['لا، لأن هدفها الأساسي المنفعة العامة وعملها لا يهدف إلى تحقيق الربح','نعم، لأنها شخص معنوي','نعم، لأنها تتعامل مع الغير','تكتسبها فقط بعد القيد في السجل التجاري'],answer:0,
+ hint:'ما هو الهدف الأساسي للشخص المعنوي العام؟',
+ why:'الشخص المعنوي العام (كالدولة والولاية والبلدية) هدفه الأساسي تحقيق المنفعة العامة، لذلك لا يكتسب صفة التاجر لأن عمله لا يهدف إلى تحقيق الربح.',
+ basis:'الشخص المعنوي العام (الدرس النظري)'});
+Q({id:'s3q8',stage:3,type:'mcq',topic:'pub',card:'c7',
+ text:'مؤسسة عمومية اقتصادية أنشأتها الدولة تتدخل في المجال الاقتصادي بهدف المضاربة وتحقيق الربح. كيف يُوصف عملها؟',
+ options:['عمل تجاري، لأنها تهدف إلى الربح عند تدخلها في المجال الاقتصادي','عمل غير تجاري لأن الدولة لا تتاجر أبدًا','عمل مدني لأنها شخص معنوي عام','عمل تجاري فقط إذا كانت شركة تضامن'],answer:0,
+ hint:'ما الذي يتغير عندما تتدخل الدولة في المجال الاقتصادي؟',
+ why:'عندما تتدخل الدولة في المجال الاقتصادي (مؤسسات عمومية اقتصادية أو شركات ذات رأس مال مختلط) فهي تهدف إلى المضاربة وتحقيق الربح، ويُعد عملها عملًا تجاريًا.',
+ basis:'الشخص المعنوي العام عند التدخل الاقتصادي (الدرس النظري)'});
+Q({id:'s3q9',stage:3,type:'mcq',topic:'dist',card:'c3',
+ text:'مسير أجير يدير مستودع شركة تضامن باسمها ولحسابها. من تُنسب إليه الصفة التجارية؟',
+ options:['إلى الشركة بحسب شكلها؛ أما المسير فلا يُعتبر تاجرًا لأنه يعمل لحساب الشركة','إلى المسير وحده لأنه من يباشر العمل','إلى المسير والشركة معًا بحكم أنه يعمل في مجال تجاري','لا إلى الشركة ولا إلى المسير'],answer:0,
+ hint:'ميّز بين صفة الشركة وصفة الشخص الطبيعي العامل لديها.',
+ why:'مسيرو الشركات لا يُعتبرون تجارًا لأنهم لا يمارسون الأعمال التجارية لحسابهم الخاص بل لحساب الشركة، أما الشركة فتجارية بحسب شكلها (المادة 544).',
+ basis:'المادة الأولى (الاستقلال) + المادة 544'});
+
+/* ---- المرحلة 4: دراسة الحالة ---- */
+Q({id:'s4q1',stage:4,type:'mcq',topic:'reg',card:'c8',
+ text:'ما الخطأ القانوني في تصرف الشركاء؟',
+ options:['مباشرة النشاط الفعلي (فتح المستودع وتسيير المخزونات) دون القيد في السجل التجاري','اختيارهم شكل شركة التضامن','توقيعهم عقد الشركة لدى موثق','فتحهم مستودعًا لتخزين سلع المتاجر'],answer:0,
+ hint:'أي عنصر من الأربعة لم يتم إنجازه قبل بدء النشاط الفعلي؟',
+ why:'مارست الشركة نشاطها الفعلي دون القيد في السجل التجاري. والقيد شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني.',
+ basis:'قاعدة القيد في السجل التجاري'});
+Q({id:'s4q2',stage:4,type:'mcq',topic:'reg',card:'c8',
+ text:'ما التصحيح الصحيح وسنده القانوني؟',
+ options:['قيد الشركة في السجل التجاري قبل مواصلة النشاط، لأن القيد شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني','انتظار تكرار النشاط مدة كافية ثم القيد','تغيير شكل الشركة إلى شركة مساهمة','لا تصحيح لازم لأن عقد الموثق يكفي'],answer:0,
+ hint:'التصحيح يتعلق بالإجراء الذي أغفلوه، وسنده قاعدة تخص ممارسة النشاط بشكل قانوني.',
+ why:'يجب قيد الشركة في السجل التجاري قبل مواصلة ممارسة النشاط، لأن القيد شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني، لا مجرد إجراء قابل للتأجيل.',
+ basis:'قاعدة القيد في السجل التجاري كما وردت في الدرس'});
+Q({id:'s4q3',stage:4,type:'mcq',topic:'reg',card:'c6',
+ text:'ما الحكم على قول الشركاء: «نحن شركة تضامن، إذن نحن تجار بحكم القانون، والقيد مجرد إجراء إداري يمكن تأجيله»؟',
+ options:['صحيح جزئيًا: الشركة تجارية بحسب شكلها (المادة 544)، لكن ذلك لا يغني عن القيد الذي هو شرط شكلي جوهري لا إجراء قابل للتأجيل','صحيح كليًا لأن الشكل القانوني يكفي في كل الأحوال','خاطئ كليًا لأن شركة التضامن ليست تجارية بحسب الشكل','خاطئ لأن الشركة لا تكون تجارية إلا بعد سنة من النشاط'],answer:0,
+ hint:'في كلامهم عنصر صحيح وعنصر خاطئ؛ ميّز بينهما.',
+ why:'صحيح أن شركة التضامن تجارية بحسب شكلها وفق المادة 544، لكن اكتساب الصبغة التجارية لا يغني عن الشرط الشكلي؛ فالقيد في السجل التجاري يبقى شرطًا جوهريًا لممارسة النشاط بشكل قانوني في مواجهة الغير.',
+ basis:'المادة 544 + قاعدة القيد في السجل التجاري'});
+Q({id:'s4q4',stage:4,type:'mcq',topic:'reg',card:'c8',
+ text:'ما السند القانوني الذي يُبنى عليه تصحيح ادعاء الشركاء؟',
+ options:['المادة 544 مع قاعدة القيد في السجل التجاري','المادة الأولى وحدها (شرط الاستقلال)','المادة الثالثة وحدها دون غيرها','لا سند قانوني؛ مجرد رأي'],answer:0,
+ hint:'السند يجمع بين ما يمنح الشركة صفتها التجارية وبين ما يُلزمها بالقيد.',
+ why:'المادة 544 تقرر الصبغة التجارية للشركة بحسب شكلها، وقاعدة القيد تقرر أن الشرط الشكلي الجوهري يجب استيفاؤه لممارسة النشاط بشكل قانوني.',
+ basis:'المادة 544 + قاعدة القيد'});
+Q({id:'s4q5',stage:4,type:'mcq',topic:'dist',card:'c3',
+ text:'ما الخطأ في تصريح المسير الأجير بأنه «تاجر» ويطلب من المورد معاملته بشروط التاجر؟',
+ options:['هو يعمل لحساب الشركة وتحت توجيه الشركاء ورقابتهم، فلا يُعتبر تاجرًا ولا يطلب شروط التاجر','لا خطأ، فهو يعمل في مجال تجاري','الخطأ أنه لم يُقيَّد هو شخصيًا في السجل التجاري فقط','الخطأ أنه لم يتخذ شكل شركة التضامن'],answer:0,
+ hint:'المسير الأجير يتلقى التوجيه والرقابة؛ فهل يعمل لحسابه الخاص؟',
+ why:'المسير لا يُعتبر تاجرًا لأنه لا يمارس الأعمال التجارية لحسابه الخاص بل لحساب الشركة، وهو في مركز تبعية يخضع لتوجيه الشركاء ورقابتهم، فلا يتحمل مخاطر الأعمال التجارية.',
+ basis:'المادة الأولى (شرطا الاستقلال والاعتياد/الاحتراف)'});
+Q({id:'s4q6',stage:4,type:'mcq',topic:'dist',card:'c3',
+ text:'ما السند القانوني لتصحيح تصريح المسير الأجير؟',
+ options:['المادة الأولى: شرطا الاستقلال والاعتياد/الاحتراف','المادة 544: الشكل القانوني للشركة','قاعدة القيد في السجل التجاري وحدها','المادة الثالثة وحدها'],answer:0,
+ hint:'الأمر يتعلق بشخص طبيعي، فأي مادة تخص الشخص الطبيعي؟',
+ why:'المسير شخص طبيعي، وشروط اكتسابه صفة التاجر تحكمها المادة الأولى: الاستقلال (العمل لحسابه الخاص) والاعتياد والاحتراف.',
+ basis:'المادة الأولى'});
+Q({id:'s4q7',stage:4,type:'mcq',topic:'form',card:'c6',
+ text:'ما التصحيح الصحيح لادعاء صاحب الشركة المدنية بأن نشاطه التجاري يكفي دون تغيير شكل شركته؟',
+ options:['الشركة المدنية ليست من الأشكال الأربعة في المادة 544، فطابعها يُحدد بموضوعها؛ ومتى مارست نشاطًا تجاريًا منتظمًا فعليها أن تتخذ أحد الأشكال الواردة في المادة 544 وتُقيَّد في السجل التجاري','يكفي أن يصبح نشاطها تجاريًا دون أي تغيير أو قيد','تصبح الشركة المدنية تجارية بحسب الشكل بمجرد بيع السلع','لا يمكن للشركة المدنية أن تمارس البيع إطلاقًا'],answer:0,
+ hint:'هل الشركة المدنية من الأشكال الأربعة؟ وماذا يُطلب ممن يمارس نشاطًا تجاريًا منتظمًا؟',
+ why:'الشركة المدنية ليست من الأشكال التي عدّتها المادة 544 تجارية بحسب الشكل، فطابعها يُحدد بموضوعها؛ ومتى مارست نشاطًا تجاريًا بشكل منتظم فعليها أن تأخذ شكلًا من الأشكال الواردة في المادة 544 (تضامن، توصية بسيطة، ذات مسؤولية محدودة، مساهمة) وتُقيَّد في السجل التجاري.',
+ basis:'المادة 544 + قاعدة القيد'});
+Q({id:'s4q8',stage:4,type:'mcq',topic:'form',card:'c6',
+ text:'ما السند القانوني لتصحيح حالة الشركة المدنية؟',
+ options:['المادة 544 (الاستثناء: «إما بشكلها أو موضوعها») مع قاعدة القيد','المادة الأولى (شرط الاستقلال) فقط','المادة 544 لأنها تعد الشركة المدنية تجارية بحسب شكلها','لا سند قانوني'],answer:0,
+ hint:'ابحث عن المادة التي تقول إن الطابع التجاري يحدده الشكل أو الموضوع.',
+ why:'المادة 544 تحدد الأشكال الأربعة وتنص على أن الطابع التجاري يُحدد «إما بشكلها أو موضوعها»، وقاعدة القيد توجب القيد في السجل التجاري.',
+ basis:'المادة 544 + قاعدة القيد'});
+Q({id:'s4q9',stage:4,type:'mcq',topic:'nat',card:'c4',
+ text:'(حالة إضافية) الجار الذي باع مرة واحدة بضاعة ورثها عن والده ادّعى أنه اكتسب صفة التاجر. ما الحكم؟',
+ options:['ادعاؤه خاطئ: العمل العارض الواحد لا يكفي، إذ يشترط الاعتياد والاحتراف','ادعاؤه صحيح لأنه قام بعمل تجاري','ادعاؤه صحيح إذا قُيّد في السجل التجاري','ادعاؤه صحيح لأنه ورث البضاعة'],answer:0,
+ hint:'هل تكرر العمل واتُّخذ حرفة؟',
+ why:'ادعاء الجار خاطئ: العمل العارض الواحد لا يكفي لاكتساب صفة التاجر وفق المادة الأولى، لأن عنصر الاعتياد (التكرار المستمر والمنتظم) وعنصر الاحتراف غير متوفرين.',
+ basis:'المادة الأولى (شرط الاعتياد والاحتراف)'});
+Q({id:'s4q10',stage:4,type:'mcq',topic:'reg',card:'c8',keep:true,
+ text:'ما التصحيح الوحيد الكافي لكي تكتسب شركة التضامن المذكورة في الحالة صفة التاجر، باعتبارها شركة تجارية بحسب الشكل؟',
+ options:['انتظار تكرار ممارسة النشاط مدة سنة كاملة قبل القيد','إثبات أن نشاطها في تسيير المخزونات نشاط تجاري بحسب موضوعه','تغيير شكلها إلى شركة ذات مسؤولية محدودة قبل ممارسة النشاط','القيد في السجل التجاري قبل مواصلة ممارسة النشاط'],answer:3,
+ hint:'شكل شركة التضامن كاف لتكون تجارية؛ فما الذي ينقصها فعلًا؟',
+ why:'شركة التضامن تجارية بحسب شكلها وفق المادة 544، فلا حاجة لإثبات موضوعها التجاري (يُستبعد الخيار الثاني) ولا لتغيير شكلها (يُستبعد الثالث)، وشرط الاعتياد يخص الشخص الطبيعي وفق المادة الأولى (يُستبعد الأول). ما ينقص الشركة هو الشرط الشكلي: القيد في السجل التجاري.',
+ basis:'المادة 544 + قاعدة القيد في السجل التجاري'});
+Q({id:'s4q11',stage:4,type:'mcq',topic:'reg',card:'c8',
+ text:'أي نصيحة قانونية مختصرة تناسب الشركاء الثلاثة قبل أن يبدأوا التعامل مع الغير؟',
+ options:['بما أن شكل شركة التضامن يجعلكم تجارًا بحسب الشكل وفق المادة 544، فعليكم القيد في السجل التجاري فورًا قبل أي تعامل مع الغير','تعاملوا مع الغير أولًا ثم قيّدوا الشركة لاحقًا متى شئتم','غيّروا شكل الشركة إلى شركة مدنية','أثبتوا أولًا أن موضوع شركتكم تجاري'],answer:0,
+ hint:'النصيحة ينبغي أن تعالج الإجراء الشكلي قبل التعامل مع الغير.',
+ why:'بما أن الشكل يجعل الشركة تجارية (المادة 544)، فعلى الشركاء القيد في السجل التجاري فورًا قبل أي تعامل مع الغير حتى تكون ممارستهم للنشاط قانونية ومشروعة في مواجهة المتعاملين معهم.',
+ basis:'المادة 544 + قاعدة القيد'});
+
+/* ---- المرحلة 5: المحاكاة المهنية ---- */
+Q({id:'s5q1',stage:5,type:'mcq',topic:'reg',card:'c8',
+ text:'أنت مساعد مسؤول المخزون في شركة لوجستيك جديدة، ويستعد مسؤول المشتريات للتفاوض مع مورّد. ما الإجراء القانوني الأهم الذي يجب التأكد من استيفائه قبل بدء التعامل؟',
+ options:['قيد الشركة في السجل التجاري','انتظار تكرار العمليات التجارية مدة طويلة','إثبات أن موضوع الشركة تجاري رغم شكلها','تحويل المستودع إلى مؤسسة عمومية'],answer:0,
+ hint:'الإجراء الشكلي الجوهري لممارسة النشاط التجاري بشكل قانوني.',
+ why:'القيد في السجل التجاري شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني، ويجب استيفاؤه قبل مواصلة النشاط والتعامل مع الغير.',
+ basis:'قاعدة القيد في السجل التجاري'});
+Q({id:'s5q2',stage:5,type:'mcq',topic:'reg',card:'c8',
+ text:'يسألك المورّد: «لماذا نطلب منكم ما يثبت القيد في السجل التجاري قبل التعاقد؟». أي جواب يوافق الدرس؟',
+ options:['لأنه يسهّل على المتعاملين معرفة هوية التاجر وحالته القانونية قبل التعاقد، ويمنح النشاط المشروعية في مواجهة الغير','لأنه يحوّل الموظف إلى تاجر','لأنه يغني عن شرط الاعتياد','لأنه إجراء شكلي لا أثر له'],answer:0,
+ hint:'فكّر في مصلحة المتعامل مع التاجر قبل التعاقد.',
+ why:'من آثار القيد أنه يمنح النشاط المشروعية في مواجهة الغير، ويسهّل على المتعاملين معرفة هوية التاجر وحالته القانونية قبل التعاقد معه.',
+ basis:'قاعدة القيد في السجل التجاري'});
+Q({id:'s5q3',stage:5,type:'mcq',topic:'form',card:'c6',
+ text:'(فرضية تعليمية) شركة ذات مسؤولية محدودة موضوعها تخزين السلع وتوزيعها. هل يلزم البحث في كون نشاطها تجاريًا حتى تُعد الشركة تجارية؟',
+ options:['لا، فشكلها وحده يكفي (المادة 544) مهما كان موضوعها','نعم، دائمًا قبل أي حكم','نعم، إذا كان موضوعها الزراعة فقط','لا، لأن الشركة ذات المسؤولية المحدودة لا تكون تجارية أبدًا'],answer:0,
+ hint:'هذا الشكل مذكور ضمن الأشكال الأربعة.',
+ why:'الشركة ذات المسؤولية المحدودة تجارية بحسب شكلها مهما كان موضوعها، فلا حاجة للبحث في طبيعة نشاطها.',
+ basis:'المادة 544'});
+Q({id:'s5q4',stage:5,type:'mcq',topic:'dist',card:'c3',
+ text:'(فرضية تعليمية) مسير أجير في المستودع يوقّع طلبية شراء باسم الشركة ولحسابها ويقول للمورد: «أنا تاجر». ما الصحيح؟',
+ options:['الصفة التجارية تتعلق بالشركة، أما المسير فلا يُعتبر تاجرًا لأنه يعمل لحساب الشركة لا لحسابه الخاص','المسير تاجر لأن الطلبية من أعمال التجارة','المسير والشركة تاجران بالصفة نفسها','لا أحد منهما يمكن أن يكتسب صفة التاجر'],answer:0,
+ hint:'لحساب من تُبرم الطلبية؟',
+ why:'مسير الشركة لا يمارس الأعمال التجارية لحسابه الخاص بل لحساب الشركة، فلا يعتبر تاجرًا؛ والصفة التجارية تثبت للشركة بحسب شكلها.',
+ basis:'المادة الأولى (الاستقلال) + المادة 544'});
+Q({id:'s5q5',stage:5,type:'tf',topic:'reg',card:'c8',
+ text:'(فرضية تعليمية) تستطيع الشركة بدء التعامل مع الموردين والعملاء بمجرد توقيع عقدها لدى الموثق، ويمكنها القيد لاحقًا متى أرادت.',
+ options:TF,answer:1,keep:true,
+ hint:'هل القيد مجرد إجراء قابل للتأجيل؟',
+ why:'العبارة خاطئة: القيد شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني، وليس مجرد إجراء قابل للتأجيل؛ فيجب القيد قبل مواصلة النشاط والتعامل مع الغير.',
+ basis:'قاعدة القيد في السجل التجاري'});
+Q({id:'s5q6',stage:5,type:'short',topic:'reg',card:'c8',
+ text:'اكتب نصيحة من سطر أو سطرين لزميل في المستودع يريد بدء النشاط التجاري للشركة قبل القيد في السجل التجاري.',
+ kw:{groups:[['قيد','سجل'],['قبل','فور','اول','بدايه','يجب'],['جوهري','شكلي','قانوني','مشروع']],min:2},
+ model:'عليكم القيد في السجل التجاري قبل بدء النشاط والتعامل مع الغير، لأن القيد شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني ومشروع.',
+ hint:'اذكر القيد، ووقته بالنسبة لبدء النشاط، وسبب لزومه.',
+ why:'القيد في السجل التجاري شرط شكلي جوهري، فيجب استيفاؤه قبل مواصلة النشاط والتعامل مع الغير لتكون ممارسة النشاط قانونية ومشروعة.',
+ basis:'قاعدة القيد في السجل التجاري'});
+
+/* ---- المرحلة 6: الاختبار النهائي ---- */
+Q({id:'f1',stage:6,type:'mcq',topic:'nat',card:'c2',w:2,
+ text:'أي جملة تلخّص شروط اكتساب الشخص الطبيعي صفة التاجر وفق المادة الأولى؟',
+ options:['ممارسة أعمال تجارية لحسابه الخاص (باستقلال) على سبيل الاعتياد والاحتراف','ممارسة عمل تجاري واحد مهما كانت قيمته','العمل بأجر لدى تاجر في مجال تجاري','امتلاك مستودع فقط'],answer:0,
+ hint:'تذكّر الشرطين: الاستقلال، ثم الاعتياد والاحتراف.',
+ why:'تقتضي المادة الأولى أن يقوم الشخص بأعمال تجارية بطريقة شخصية ومستقلة، وعلى سبيل الاعتياد والاحتراف.',
+ basis:'المادة الأولى'});
+Q({id:'f2',stage:6,type:'tf',topic:'dist',card:'c3',w:2,
+ text:'المسير الأجير الذي يعمل في مجال تجاري يكتسب صفة التاجر لأن نشاط الشركة تجاري.',
+ options:TF,answer:1,keep:true,
+ hint:'لحساب من يمارس المسير الأجير العمل؟',
+ why:'العبارة خاطئة: المسير لا يمارس الأعمال التجارية لحسابه الخاص بل لحساب الشركة، وهو في مركز تبعية، فلا يكتسب صفة التاجر.',
+ basis:'المادة الأولى (شرط الاستقلال)'});
+Q({id:'f3',stage:6,type:'multi',topic:'form',card:'c6',w:2,
+ text:'حدّد ما يُعد تجاريًا بحسب الشكل وفق المادة 544 من بين الحالات التالية:',
+ options:['شركة توصية بسيطة موضوعها فلاحي','شركة مساهمة موضوعها نقل البضائع','شركة مدنية لإدارة أموال عائلية','بلدية تسيّر مرفقًا عموميًا'],answer:[0,1],
+ hint:'ابحث عن الأشكال الأربعة التي ذكرتها المادة 544، ولا تنظر إلى الموضوع.',
+ why:'شركة التوصية البسيطة وشركة المساهمة من الأشكال الأربعة، فهما تجاريتان بحسب الشكل مهما كان موضوعهما. أما الشركة المدنية فليست من هذه الأشكال، والبلدية شخص معنوي عام هدفه المنفعة العامة.',
+ basis:'المادة 544'});
+Q({id:'f4',stage:6,type:'fill',topic:'form',card:'c6',w:1,
+ text:'أكمل العبارة:',
+ tpl:'الشركة التجارية بحسب الشكل تكتسب الصبغة التجارية من {0} وحده، مهما كان {1} نشاطها.',
+ blanks:[['شكلها القانوني','حجم رأسمالها','عدد عمالها'],['موضوع','مكان','تاريخ']],answer:[0,0],
+ hint:'التعريف الوارد في الدرس يربط الصبغة التجارية بالشكل لا بالموضوع.',
+ why:'الشركة التجارية بحسب الشكل: شركة تكتسب الصبغة التجارية من شكلها القانوني وحده، مهما كان موضوع نشاطها (المادة 544).',
+ basis:'المادة 544'});
+Q({id:'f5',stage:6,type:'match',topic:'dist',card:'c9',w:2,
+ text:'طابق كل مصطلح بتعريفه:',
+ rows:['التاجر','الشخص المعنوي','الشركة التجارية بحسب الشكل','القيد في السجل التجاري'],
+ options:['شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني','شركة تكتسب الصبغة التجارية من شكلها القانوني وحده مهما كان موضوع نشاطها','الشخص الذي يمارس أعمالًا تجارية بحرفيته ويخضع لأحكام القانون التجاري','كيان قانوني له ذمة مالية مستقلة كالشركات والمؤسسات العمومية'],answer:[2,3,1,0],
+ hint:'راجع بطاقة المصطلحات الأساسية في الدرس.',
+ why:'التاجر: الشخص الذي يمارس أعمالًا تجارية بحرفيته ويخضع لأحكام القانون التجاري. الشخص المعنوي: كيان قانوني له ذمة مالية مستقلة. الشركة التجارية بحسب الشكل: تكتسب الصبغة التجارية من شكلها وحده. القيد: شرط شكلي جوهري لممارسة النشاط التجاري بشكل قانوني.',
+ basis:'المصطلحات الأساسية في الدرس'});
+Q({id:'f6',stage:6,type:'mcq',topic:'reg',card:'c8',w:2,
+ text:'شركة توصية بسيطة بدأت فعليًا تخزين السلع لحساب بعض المتاجر دون قيد في السجل التجاري، وقال أحد الشركاء: «شكلنا القانوني يكفي لنكون تجارًا». ما الحكم؟',
+ options:['الشكل يمنح الشركة الصفة التجارية (المادة 544) لكن يجب القيد قبل مواصلة النشاط لأنه شرط شكلي جوهري','الحكم صحيح كليًا ولا حاجة إلى القيد','الشركة غير تجارية لأن موضوعها التخزين','يجب انتظار سنة نشاط قبل القيد'],answer:0,
+ hint:'ميّز بين اكتساب الصبغة التجارية وبين استيفاء الشرط الشكلي.',
+ why:'شركة التوصية البسيطة تجارية بحسب شكلها (المادة 544)، لكن اكتساب الصبغة التجارية لا يغني عن القيد الذي يبقى شرطًا شكليًا جوهريًا لممارسة النشاط بشكل قانوني.',
+ basis:'المادة 544 + قاعدة القيد'});
+Q({id:'f7',stage:6,type:'mcq',topic:'nat',card:'c4',w:1,
+ text:'من بين الأشخاص الآتية، من لا يكتسب صفة التاجر؟',
+ options:['شخص قام بعمل تجاري عابر واحد ولم يتخذه حرفة','شخص يبيع السلع بانتظام لحسابه الخاص ويتخذ ذلك حرفة','شخص يخزّن السلع ويبيعها بصفة مستمرة لحسابه الخاص','شركة تضامن'],answer:0,
+ hint:'ابحث عن غياب الاعتياد والاحتراف.',
+ why:'الشخص الذي يقوم بعمل تجاري عارض لا يكتسب صفة التاجر، إذ يجب توافر عنصر الاعتياد وعنصر الاحتراف معًا.',
+ basis:'المادة الأولى'});
+Q({id:'f8',stage:6,type:'tf',topic:'form',card:'c6',w:1,
+ text:'نصّت المادة الثالثة من القانون التجاري الجزائري على أن الشركات تُعد بمثابة أعمال تجارية بحسب الشكل.',
+ options:TF,answer:0,keep:true,
+ hint:'راجع بطاقة «الشركات التجارية بحسب الشكل».',
+ why:'العبارة صحيحة وفق الدرس: المادة الثالثة نصّت على أن الشركات تُعد بمثابة أعمال تجارية بحسب الشكل، وجاءت المادة 544 لتحدد الأشكال الأربعة.',
+ basis:'المادة الثالثة'});
+Q({id:'f9',stage:6,type:'mcq',topic:'pub',card:'c7',w:1,
+ text:'الدولة تشترك في شركة ذات رأس مال مختلط بهدف تحقيق الربح. كيف يُوصف عملها؟',
+ options:['عمل تجاري، لأنها تهدف إلى المضاربة وتحقيق الربح عند تدخلها في المجال الاقتصادي','عمل غير تجاري لأن الدولة شخص معنوي عام','عمل مدني لأنه يخدم المنفعة العامة','لا يوصف بأي وصف قانوني'],answer:0,
+ hint:'تذكّر حالة تدخل الدولة في المجال الاقتصادي.',
+ why:'عندما تشترك الدولة في شركات ذات رأس مال مختلط، فهي تهدف إلى المضاربة وتحقيق الربح، ويُعد عملها عملًا تجاريًا.',
+ basis:'الشخص المعنوي العام (الدرس النظري)'});
+Q({id:'f10',stage:6,type:'short',topic:'reg',card:'c8',w:2,
+ text:'في سطرين: لماذا لا يكفي أن تجمع الشركة أو الشخص الطبيعي الشروط الموضوعية دون القيد في السجل التجاري؟',
+ kw:{groups:[['مشروع','قانوني','شرعي'],['الغير','المتعامل','التعاقد'],['رقاب','الادار'],['هوي','حالته'],['شكلي','جوهري']],min:2},
+ model:'لأن القيد شرط شكلي جوهري: هو الذي يمنح النشاط المشروعية في مواجهة الغير، ويُخضع التجارة لرقابة الإدارة، ويسهّل على المتعاملين معرفة هوية التاجر وحالته القانونية؛ فتبقى ممارسة النشاط دون قيد مخالفة للإطار القانوني.',
+ hint:'اذكر طبيعة الشرط (شكلي جوهري) وأثره في مواجهة الغير.',
+ why:'لا يكفي استيفاء الشروط الموضوعية، لأن القيد في السجل التجاري هو ما يمنح النشاط المشروعية في مواجهة الغير ويجعله خاضعًا لرقابة الإدارة، ويسهّل معرفة هوية التاجر وحالته القانونية قبل التعاقد.',
+ basis:'قاعدة القيد في السجل التجاري'});
+Q({id:'f11',stage:6,type:'mcq',topic:'dist',card:'c2',w:1,
+ text:'ما المادة التي يستند إليها الدرس لتقرير شرطي الاستقلال والاعتياد والاحتراف في الشخص الطبيعي؟',
+ options:['المادة الأولى','المادة الثالثة','المادة 544','لا مادة محددة'],answer:0,keep:true,
+ hint:'هي المادة التي تعرّف التاجر.',
+ why:'المادة الأولى عرّفت التاجر، ومنها تُستخلص شروط اكتساب الشخص الطبيعي هذه الصفة.',
+ basis:'المادة الأولى'});
+Q({id:'f12',stage:6,type:'mcq',topic:'form',card:'c6',w:2,
+ text:'شركة مدنية استأجرت مستودعًا وتبيع السلع بانتظام، وتزعم أن نشاطها وحده يكفي دون تغيير شكلها. ما التصحيح؟',
+ options:['الشركة المدنية ليست من الأشكال الأربعة في المادة 544، فعليها إن مارست نشاطًا تجاريًا منتظمًا أن تتخذ أحد هذه الأشكال وتُقيَّد في السجل التجاري','لا تصحيح، فنشاطها وحده يغني عن أي شكل أو قيد','تصبح تجارية تلقائيًا بحسب الشكل لأنها بائعة للسلع','عليها فقط انتظار سنة من النشاط'],answer:0,
+ hint:'تذكّر الأشكال الأربعة والاستثناء المتعلق بالموضوع، ثم القيد.',
+ why:'الشركة المدنية ليست من الأشكال التي عدّتها المادة 544 تجارية بحسب الشكل، فطابعها يُحدد بموضوعها؛ ومتى مارست نشاطًا تجاريًا منتظمًا فعليها أن تأخذ شكلًا من الأشكال الواردة في المادة 544 وتُقيَّد في السجل التجاري.',
+ basis:'المادة 544 + قاعدة القيد'});
+
+var QM={};QL.forEach(function(q){QM[q.id]=q});
+
+/* ============ المراحل والعناصر ============ */
+var STAGES=[
+ {n:1,t:'اكتشف القاعدة القانونية'},
+ {n:2,t:'حلّل النصوص القانونية'},
+ {n:3,t:'تحدي التمييز القانوني'},
+ {n:4,t:'دراسة الحالة العملية'},
+ {n:5,t:'محاكاة الممارسة المهنية'},
+ {n:6,t:'الاختبار النهائي الشامل'}];
+function I(title,html,cls){return {k:'info',title:title,html:html,cls:cls||''}}
+function QI(id){return {k:'q',id:id}}
+var ITEMS={
+2:[I('تحليل النصوص القانونية','<p>في هذه المرحلة تحلّل نصوص المادة الأولى والمادة 544 وتطبّقها. لكل سؤال <b>محاولتان</b> كحد أقصى.</p><div class="note">نص المادة 548 غير وارد في الملف الأصلي، لذلك لا تُبنى عليه أي أسئلة في هذه اللعبة.</div>'),QI('s2q1'),QI('s2q2'),QI('s2q3'),QI('s2q4'),QI('s2q5'),QI('s2q6'),QI('s2q7'),QI('s2q8')],
+3:[I('تحدي التمييز القانوني','<p>مواقف قصيرة قريبة من تخصصك (تسيير المخزونات واللوجستيك): ميّز بين الاستقلال والتبعية، والاعتياد والعمل العارض، والمعيار الشكلي والموضوعي.</p>'),QI('s3q1'),QI('s3q2'),QI('s3q3'),QI('s3q4'),QI('s3q5'),QI('s3q6'),QI('s3q7'),QI('s3q8'),QI('s3q9')],
+4:[I('دراسة الحالة: شركة «اللوجستيك الحديثة» قيد التأسيس','<p>أنت الآن <b>مستشار قانوني</b> يوجّه الشركة نحو التصرف الصحيح. ستقرأ الحالة مشهدًا مشهدًا، وبعد كل مشهد تحدد ما يحتاج إلى تصحيح وتعليله القانوني.</p>'),
+ I('المشهد الأول: تأسيس الشركة وبدء النشاط','<p>في مدينة سكيكدة، قرر ثلاثة شركاء تأسيس شركة لوجستيك وتسيير المخزونات، واختاروا شكل <b>شركة التضامن</b>. وقّعوا عقد الشركة لدى موثق، ثم فتحوا مستودعًا وبدأوا فعليًا في تسيير مخزونات وتخزين سلع لبعض المتاجر، <b>دون أن يقيّدوا الشركة في السجل التجاري</b>.</p>','scene'),QI('s4q1'),QI('s4q2'),
+ I('المشهد الثاني: ادعاء الشركاء','<p>عندما سألهم أحد المتعاملين عن وضعهم القانوني، أجابوا: «نحن شركة تضامن، إذن نحن تجار بحكم القانون، والقيد مجرد إجراء إداري يمكن تأجيله».</p>','scene'),QI('s4q3'),QI('s4q4'),
+ I('المشهد الثالث: المسير الأجير','<p>إلى جانب ذلك، يعمل لدى الشركة مسير لتسيير المخزونات <b>بأجر</b>، يخضع لتوجيهات الشركاء ويراقبون عمله يوميًا. هذا المسير يصرّح لأطرافه التعاملية بأنه «تاجر» لأنه يعمل في مجال تجاري، ويطلب من مورد أن يتعامل معه بشروط التاجر.</p>','scene'),QI('s4q5'),QI('s4q6'),
+ I('المشهد الرابع: الشركة المدنية','<p>كما أن أحد أقارب الشركاء أسس سابقًا <b>شركة مدنية</b> هدفها إدارة أموال عائلية، لكنه استأجر بها مستودعًا وبدأ يبيع السلع المخزنة بشكل منتظم ومتكرر، معتمدًا على أن نشاطه أصبح تجاريًا فيكفي ذلك دون تغيير شكل شركته.</p>','scene'),QI('s4q7'),QI('s4q8'),
+ I('المشهد الخامس: الجار','<p>وأخيرًا، شارك أحد الجيران في <b>عملية بيع عارضة واحدة</b> لكمية بضاعة ورثها عن والده، ثم ادّعى أنه اكتسب صفة التاجر لأنه قام بعمل تجاري.</p><p class="muted small">ملاحظة: هذه حالة إضافية تُعالج بإجابة سليمة المضمون.</p>','scene'),QI('s4q9'),
+ I('الخلاصة: التصحيح والنصيحة','<p>بعد تحليل المشاهد، اختر التصحيح الكافي ثم النصيحة القانونية الأنسب للشركاء.</p>'),QI('s4q10'),QI('s4q11')],
+5:[I('محاكاة الممارسة المهنية','<p>أنت في موقف مهني داخل شركة لوجستيك وتسيير مخزونات. بعض المعطيات أدناه <b>فرضيات تعليمية</b> لأغراض التدريب، وليست نصوصًا قانونية مقتبسة من الدرس.</p>'),QI('s5q1'),QI('s5q2'),QI('s5q3'),QI('s5q4'),QI('s5q5'),QI('s5q6')],
+6:[I('الاختبار النهائي الشامل','<p>يجمع هذا الاختبار محاور الدرس كلها، ويُعطى <b>وزن أكبر</b> لأسئلة تحليل النصوص القانونية ودراسة الحالة (مبيّن على كل سؤال). تسري عليك القواعد نفسها: محاولتان فقط لكل سؤال، ولا تُعاد المحاولة بعد استنفادها.</p>'),
+ QI('f1'),QI('f2'),QI('f3'),QI('f4'),QI('f5'),QI('f6'),QI('f7'),QI('f8'),QI('f9'),QI('f10'),QI('f11'),QI('f12')]
+};
+var LABEL={mcq:'اختيار من متعدد',tf:'صواب أم خطأ',multi:'اختيار عدة إجابات',match:'مطابقة',fill:'إكمال العبارة',sort:'تصنيف (سحب وإفلات)',short:'إجابة قصيرة'};
+
+/* ============ الحالة ============ */
+function freshState(){return {v:1,started:false,view:'welcome',trainee:null,cfg:null,pos:{stage:1,idx:0},s1done:false,q:{},final:null,certNo:null}}
+var S=lsGet(SK);
+if(!S||S.v!==1)S=freshState();
+var ui={draft:{},qc:{},open:{},modal:null,theory:null,errs:null,form:null,sortSel:{},scroll:true,setErr:null};
+function save(){lsSet(SK,S)}
+function QS(id){if(!S.q[id])S.q[id]={ph:'open',a:0,res:null,hs:0,hp:0,dl:0,ord:null,last:null,ans:[],to:false};return S.q[id]}
+function resolved(id){return QS(id).ph==='done'}
+function reqStages(){var m=S.cfg?S.cfg.mode:SET.mode;return m==='exam'?[6]:[1,2,3,4,5,6]}
+function stageQs(n){return QL.filter(function(q){return q.stage===n})}
+function stageComplete(n){if(n===1)return !!S.s1done;return stageQs(n).every(function(q){return resolved(q.id)})}
+function stageStatus(n){
+ var req=reqStages();if(req.indexOf(n)<0)return 'skip';
+ if(stageComplete(n))return 'done';
+ for(var i=0;i<req.length;i++){if(req[i]<n&&!stageComplete(req[i]))return 'locked'}
+ return 'open';
+}
+function itemsOf(n){return ITEMS[n]||[]}
+function maxIdx(n){var it=itemsOf(n);for(var i=0;i<it.length;i++){if(it[i].k==='q'&&!resolved(it[i].id))return i}return it.length-1}
+function firstOpenIdx(n){return maxIdx(n)}
+function progress(){
+ var req=reqStages(),tot=0,done=0;
+ req.forEach(function(n){if(n===1){tot++;if(S.s1done)done++}else{stageQs(n).forEach(function(q){tot++;if(resolved(q.id))done++})}});
+ return tot?Math.round(done/tot*100):0;
+}
+
+/* ============ التصحيح ============ */
+function order(q){
+ var st=QS(q.id);
+ if(!st.ord){var n=q.options.length,a=[],i,j,t;for(i=0;i<n;i++)a.push(i);
+  if(!q.keep&&(q.type==='mcq'||q.type==='multi')){for(i=n-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=a[i];a[i]=a[j];a[j]=t}}
+  st.ord=a;save()}
+ return st.ord;
+}
+function complete(q,d){
+ if(d===undefined||d===null)return false;
+ switch(q.type){
+  case 'mcq':case 'tf':return typeof d==='number';
+  case 'multi':return d.length>=1;
+  case 'match':for(var i=0;i<q.rows.length;i++){if(d[i]===undefined||d[i]==='')return false}return true;
+  case 'fill':for(var j=0;j<q.blanks.length;j++){if(d[j]===undefined||d[j]==='')return false}return true;
+  case 'sort':for(var k=0;k<q.items.length;k++){if(d[k]===undefined)return false}return true;
+  case 'short':return String(d).trim().length>=3;
+ }
+ return false;
+}
+function gradeShort(q,t){var n=norm(t),hit=0;q.kw.groups.forEach(function(g){if(g.some(function(s){return n.indexOf(norm(s))>=0}))hit++});return hit>=q.kw.min}
+function grade(q,d){
+ switch(q.type){
+  case 'mcq':case 'tf':return d===q.answer;
+  case 'multi':return d.slice().sort().join()===q.answer.slice().sort().join();
+  case 'match':return q.answer.every(function(a,i){return Number(d[i])===a});
+  case 'fill':return q.answer.every(function(a,i){return Number(d[i])===a});
+  case 'sort':return q.items.every(function(it,i){return d[i]===it[1]});
+  case 'short':return gradeShort(q,d);
+ }
+ return false;
+}
+function submit(id){
+ var q=QM[id],st=QS(id);
+ if(st.ph!=='open'&&st.ph!=='retry')return;
+ var d=ui.draft[id];
+ if(!complete(q,d)){toast(q.type==='short'?'اكتب إجابتك أولًا (3 أحرف على الأقل).':'أكمل الإجابة قبل التحقق.');return}
+ var ok=grade(q,d);
+ st.a++;st.last=(typeof d==='object')?clone(d):d;
+ if(q.type==='short')st.ans.push(String(d));
+ if(ok){st.res=st.a===1?'c1':'c2';st.ph='done';st.dl=0}
+ else if(st.a===1){st.ph='wrong1'}
+ else{st.res='f';st.ph='done';st.dl=0}
+ delete ui.draft[id];
+ save();render();
+}
+function startRetry(id){
+ var st=QS(id);if(st.ph!=='wrong1')return;
+ st.ph='retry';
+ st.dl=(S.cfg.timersOn&&S.cfg.answerSec>0)?Date.now()+S.cfg.answerSec*1000:0;
+ st.last=null;delete ui.draft[id];ui.sortSel[id]=null;
+ save();render();
+}
+function qScore(q){var st=S.q[q.id];if(!st||st.ph!=='done')return 0;return st.res==='c1'?1:(st.res==='c2'?S.cfg.secondPct/100:0)}
+
+/* ============ النتيجة ============ */
+function gradedSet(){
+ var req=reqStages();
+ return QL.filter(function(q){return req.indexOf(q.stage)>=0&&(q.stage===6||(S.cfg.mode!=='exam'&&S.cfg.formative))});
+}
+function levelOf(pct){var t=S.cfg.th;if(pct>=t.excellent)return 'ممتاز';if(pct>=t.vgood)return 'جيد جدًا';if(pct>=t.good)return 'جيد';if(pct>=t.ok)return 'مقبول';return 'يحتاج إلى مراجعة'}
+function computeFinal(){
+ var req=reqStages(),all=QL.filter(function(q){return req.indexOf(q.stage)>=0}),gs=gradedSet();
+ var max=0,earn=0,topics={};
+ gs.forEach(function(q){max+=q.w;var e=q.w*qScore(q);earn+=e;var t=topics[q.topic]||(topics[q.topic]={max:0,earn:0});t.max+=q.w;t.earn+=e});
+ var pct=max?earn/max*100:0,mark=Math.round(pct/100*S.cfg.total*100)/100;
+ var c1=0,c2=0,f=0,hs=0,hp=0,perStage={};
+ all.forEach(function(q){var st=QS(q.id);hs+=st.hs;hp+=st.hp;
+  var ps=perStage[q.stage]||(perStage[q.stage]={n:0,c1:0,c2:0,f:0});ps.n++;
+  if(st.res==='c1'){c1++;ps.c1++}else if(st.res==='c2'){c2++;ps.c2++}else{f++;ps.f++}});
+ return {mark:mark,pct:Math.round(pct*100)/100,level:levelOf(pct),total:S.cfg.total,nAll:all.length,nGraded:gs.length,c1:c1,c2:c2,f:f,both:c2+f,hs:hs,hp:hp,topics:topics,perStage:perStage,date:today()};
+}
+function finalize(){
+ if(!S.final){S.final=computeFinal()}
+ if(!S.certNo){var r='';var ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';for(var i=0;i<5;i++)r+=ch.charAt(Math.floor(Math.random()*ch.length));S.certNo='RT-'+today().replace(/-/g,'')+'-'+r}
+ S.view='results';save();
+}
+
+/* ============ العرض: عناصر مساعدة ============ */
+function cur(q){var st=QS(q.id);return (st.ph==='open'||st.ph==='retry')?ui.draft[q.id]:st.last}
+function bodyOpts(q,st,v,mode){
+ var ord=order(q),multi=q.type==='multi',ans=multi?q.answer:[q.answer];
+ return '<div class="opts'+(q.type==='tf'?' tf':'')+'">'+ord.map(function(i){
+  var sel=multi?(v&&v.indexOf(i)>=0):v===i,cls='opt'+(multi?' multi':'')+(sel?' sel':'');
+  if(mode==='reveal'){var isAns=ans.indexOf(i)>=0;if(isAns)cls+=' ok';else if(sel)cls+=' bad';}
+  else if(mode==='lock'&&sel)cls+=' wrongsel';
+  return '<button type="button" class="'+cls+'" data-a="'+(multi?'tog':'pick')+'" data-q="'+q.id+'" data-i="'+i+'"'+(mode==='edit'?'':' disabled')+' aria-pressed="'+(sel?'true':'false')+'"><span class="mark"></span><span>'+esc(q.options[i])+'</span></button>';
+ }).join('')+'</div>'+(multi&&mode==='edit'?'<p class="muted small">يمكنك اختيار أكثر من إجابة.</p>':'');
+}
+function bodyMatch(q,v,mode){
+ v=v||{};
+ return '<table class="mt">'+q.rows.map(function(r,i){
+  var sel=v[i],rc='';
+  if(mode==='reveal')rc=(Number(sel)===q.answer[i])?' class="ok"':' class="bad"';
+  return '<tr'+rc+'><td>'+esc(r)+(mode==='reveal'&&Number(sel)!==q.answer[i]?'<div class="small" style="color:var(--ok)">الصحيح: '+esc(q.options[q.answer[i]])+'</div>':'')+'</td><td><select data-a="sel" data-q="'+q.id+'" data-i="'+i+'"'+(mode==='edit'?'':' disabled')+' aria-label="'+esc(r)+'"><option value="">اختر…</option>'+q.options.map(function(o,j){return '<option value="'+j+'"'+(String(sel)===String(j)?' selected':'')+'>'+esc(o)+'</option>'}).join('')+'</select></td></tr>';
+ }).join('')+'</table>';
+}
+function bodyFill(q,v,mode){
+ v=v||{};
+ return '<p class="fill">'+q.tpl.replace(/\{(\d+)\}/g,function(_,n){
+  n=Number(n);var sel=v[n],cls='';
+  if(mode==='reveal')cls=(Number(sel)===q.answer[n])?' ok':' bad';
+  return '</span><select class="'+cls.trim()+'" data-a="sel" data-q="'+q.id+'" data-i="'+n+'"'+(mode==='edit'?'':' disabled')+'><option value="">اختر…</option>'+q.blanks[n].map(function(o,j){return '<option value="'+j+'"'+(String(sel)===String(j)?' selected':'')+'>'+esc(o)+'</option>'}).join('')+'</select><span>';
+ }).replace(/^/,'<span>')+'</span></p>';
+}
+function bodySort(q,v,mode){
+ v=v||{};var sel=ui.sortSel[q.id],edit=mode==='edit';
+ function chip(i,extra){
+  var cls='chipi'+(sel===i?' sel':'');
+  if(mode==='reveal'){cls+=(v[i]===q.items[i][1])?' ok':' bad'}
+  return '<button type="button" class="'+cls+'" '+(edit?'draggable="true" data-a="sortpick" data-q="'+q.id+'" data-i="'+i+'"':'disabled')+'>'+esc(q.items[i][0])+'</button>';
+ }
+ var pool=[],bins=q.cats.map(function(){return []});
+ q.items.forEach(function(it,i){if(v[i]===undefined)pool.push(i);else bins[v[i]].push(i)});
+ return '<div class="sortwrap"><div class="pool" data-drop="pool" data-q="'+q.id+'">'+(pool.length?pool.map(function(i){return chip(i)}).join(''):'<span class="muted small">تم توزيع كل العناصر.</span>')+'</div><div class="bins">'+q.cats.map(function(c,ci){
+  return '<div class="bin" data-a="sortplace" data-drop="'+ci+'" data-q="'+q.id+'" data-c="'+ci+'"><h4>'+esc(c)+'</h4>'+bins[ci].map(function(i){return chip(i)}).join('')+'</div>';
+ }).join('')+'</div></div>'+(edit?'<p class="muted small">اضغط على العنصر ثم على الخانة، أو اسحبه إليها. اضغط على عنصر موضوع لإعادته.</p>':'');
+}
+function bodyShort(q,v,mode){
+ return '<textarea class="short" data-a="txt" data-q="'+q.id+'" maxlength="500" placeholder="اكتب إجابتك هنا…"'+(mode==='edit'?'':' disabled')+'>'+esc(v||'')+'</textarea>';
+}
+function correctHTML(q){
+ switch(q.type){
+  case 'mcq':case 'tf':return '<p>'+esc(q.options[q.answer])+'</p>';
+  case 'multi':return '<ul>'+q.answer.map(function(i){return '<li>'+esc(q.options[i])+'</li>'}).join('')+'</ul>';
+  case 'match':return '<ul>'+q.rows.map(function(r,i){return '<li>'+esc(r)+' ← <b>'+esc(q.options[q.answer[i]])+'</b></li>'}).join('')+'</ul>';
+  case 'fill':return '<p>'+esc(q.tpl.replace(/\{(\d+)\}/g,function(_,n){return q.blanks[n][q.answer[n]]}))+'</p>';
+  case 'sort':return '<ul>'+q.cats.map(function(c,ci){return '<li><b>'+esc(c)+':</b> '+q.items.filter(function(it){return it[1]===ci}).map(function(it){return esc(it[0])}).join('، ')+'</li>'}).join('')+'</ul>';
+  case 'short':return '<p>'+esc(q.model)+'</p>';
+ }
+ return '';
+}
+var PRAISE=['أحسنت!','إجابة سليمة.','ممتاز، تحليل قانوني دقيق.','عمل جيد، واصل.'];
+function questionHTML(q){
+ var st=QS(q.id),mode=(st.ph==='open'||st.ph==='retry')?'edit':(st.ph==='wrong1'?'lock':'reveal'),v=cur(q);
+ var items=itemsOf(q.stage),qn=0,qt=0;items.forEach(function(it){if(it.k==='q'){qt++;if(it.id===q.id)qn=qt}});
+ var h='<div class="qhead"><span class="tag">سؤال '+qn+' من '+qt+'</span><span class="tag">'+LABEL[q.type]+'</span>'+(q.w!==1?'<span class="tag gold">وزن السؤال ×'+q.w+'</span>':'')+'<span class="tag">المحاولة '+(st.ph==='done'?st.a:(st.ph==='wrong1'?'1 من 2':(st.a+1)+' من 2'))+(st.ph==='done'?' من 2':'')+'</span>'+(st.ph==='retry'&&st.dl?'<span class="timer low" aria-label="الوقت المتبقي">⏱ <span data-tm="ans" data-dl="'+st.dl+'">--:--</span></span>':'')+'</div>';
+ h+='<p class="qtext">'+esc(q.text)+'</p>';
+ if(q.type==='mcq'||q.type==='tf'||q.type==='multi')h+=bodyOpts(q,st,v,mode);
+ else if(q.type==='match')h+=bodyMatch(q,v,mode);
+ else if(q.type==='fill')h+=bodyFill(q,v,mode);
+ else if(q.type==='sort')h+=bodySort(q,v,mode);
+ else if(q.type==='short')h+=bodyShort(q,v,mode);
+ if(st.ph==='open'||st.ph==='retry'){
+  h+='<div class="row" style="margin-top:14px"><button class="btn teal" data-a="check" data-q="'+q.id+'">تحقق من الإجابة</button>'+(st.ph==='retry'?'<span class="muted small">هذه محاولتك الأخيرة.</span>':'')+'</div>';
+ }else if(st.ph==='wrong1'){
+  var exam=S.cfg.mode==='exam';
+  h+='<div class="fb bad"><h4>إجابة غير صحيحة</h4><p>فكّر مجددًا بهدوء.'+(q.hint?' <b>تلميح:</b> '+esc(q.hint):'')+'</p><p class="small">يحق لك محاولة ثانية واحدة فقط. الاستعانة بالملخص أو بزميل لا تمنحك محاولة إضافية ولا تُحتسب إجابة صحيحة.</p><div class="row"><button class="btn teal" data-a="retry" data-q="'+q.id+'">أحاول مرة ثانية</button>'+(exam?'':'<button class="btn ghost" data-a="help-sum" data-q="'+q.id+'">أستعين بالملخص النظري</button><button class="btn ghost" data-a="help-peer" data-q="'+q.id+'">أستعين بزميل</button>')+'</div></div>';
+ }else{
+  var cls=st.res==='c1'?'ok':(st.res==='c2'?'c2':'bad'),title;
+  if(st.res==='c1')title='إجابة صحيحة من المحاولة الأولى. '+PRAISE[(q.id.length+qn)%PRAISE.length];
+  else if(st.res==='c2')title='إجابة صحيحة في المحاولة الثانية — تحصل على '+S.cfg.secondPct+'% من علامة السؤال.';
+  else title=st.to?'انتهى وقت المحاولة الثانية.':'لم تُصب في المحاولتين.';
+  h+='<div class="fb '+cls+'"><h4>'+esc(title)+'</h4>'+(st.res==='f'?'<p><b>الإجابة النموذجية:</b></p>'+correctHTML(q):'')+'<p><b>التعليل القانوني:</b> '+esc(q.why)+'</p><p class="basis"><b>السند:</b> '+esc(q.basis)+'</p>'+(q.type==='short'?'<p class="muted small">الإجابات القصيرة تُصحَّح آليًا بالكلمات المفتاحية، ويراجعها الأستاذ في ملخص النتائج.</p>':'')+'</div>';
+ }
+ return '<div class="q">'+h+'</div>';
+}
+function cardBody(c,full){
+ return '<div class="bd">'+c.h+'<div class="qc"><b>تحقق سريع (غير محتسب):</b><p>'+esc(c.qc.q)+'</p>'+c.qc.o.map(function(o,i){
+  var k=c.id+':'+i,chosen=ui.qc[c.id],cl='o';
+  if(chosen!==undefined){if(i===c.qc.a)cl+=' ok';else if(chosen===i)cl+=' bad'}
+  return '<button type="button" class="'+cl+'" data-a="qc" data-c="'+c.id+'" data-i="'+i+'">'+esc(o)+'</button>';
+ }).join('')+(ui.qc[c.id]!==undefined?'<p class="small">'+(ui.qc[c.id]===c.qc.a?'إجابة صحيحة.':'ليست الإجابة الصحيحة؛ الصحيحة مظلَّلة بالأخضر.')+'</p>':'')+'</div></div>';
+}
+
+/* ============ الشاشات ============ */
+function headerHTML(){
+ var t=S.trainee||{};
+ return '<div class="top"><div><b>⚖ رحلة التاجر</b> — '+esc(t.name||'')+'</div><div class="small">التقدم: '+progress()+'%</div></div><div class="pbar" role="progressbar" aria-valuenow="'+progress()+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+progress()+'%"></i></div>'+(saveFailed?'<div class="banner">تعذّر حفظ التقدم محليًا في هذا المتصفح (ربما الوضع الخاص). لا تحدّث الصفحة وإلا فقدت تقدمك.</div>':'');
+}
+function mapHTML(){
+ return '<ol class="map">'+STAGES.map(function(s){
+  var stt=stageStatus(s.n),c=(S.pos.stage===s.n&&S.view==='play')?' cur':'';
+  var lab=stt==='skip'?'غير مطلوبة':(stt==='locked'?'مغلقة':(stt==='done'?'مكتملة':'متاحة'));
+  return '<li><button class="node '+stt+c+'" data-a="goStage" data-n="'+s.n+'"'+((stt==='locked'||stt==='skip')?' disabled':'')+'><b>'+(stt==='done'?'✓':s.n)+'</b><br>'+esc(s.t)+'<br><span class="muted">'+lab+'</span></button></li>';
+ }).join('')+'</ol>';
+}
+function rulesHTML(c){
+ var g=c.mode==='exam'?'أسئلة الاختبار النهائي فقط':(c.formative?'أسئلة المراحل 2 إلى 6 (والاختبار النهائي بوزن أكبر)':'أسئلة الاختبار النهائي فقط');
+ return '<ul class="rules"><li>لكل سؤال <b>محاولتان</b> كحد أقصى، ولا تُعاد المحاولة بعد استنفادها حتى لو حدّثت الصفحة.</li><li>الإجابة الصحيحة من المحاولة الأولى: <b>العلامة كاملة</b>. من المحاولة الثانية: <b>'+c.secondPct+'%</b> من علامة السؤال. الخطأ بعد المحاولتين: لا نقاط.</li><li>الاستعانة بالملخص النظري أو بزميل <b>لا تمنح نقاطًا ولا تخصم نقاطًا</b>، ولا تمنح محاولة إضافية؛ وتُسجَّل في ملخص النتائج لأغراض التقييم التكويني فقط.</li><li>العلامة النهائية من <b>'+c.total+'</b> تُحتسب آليًا على: '+g+'.</li><li>المؤقتات: '+(c.timersOn?'مفعّلة (مراجعة الدرس اختيارية وغير محتسبة، المساعدة '+(c.peerSec||'بلا')+' ث، الإجابة بعد الخطأ '+(c.answerSec||'بلا')+' ث، ولا يُحتسب وقت المساعدة ضمن وقت الإجابة).':'معطّلة.')+'</li>'+(c.mode==='exam'?'<li>الوضع الحالي: <b>اختبار نهائي</b> — يبدأ المتربص بالمرحلة السادسة مباشرة وتتعطل المساعدات.</li>':'')+'</ul>';
+}
+function viewWelcome(){
+ var c=S.started?S.cfg:SET,t=S.trainee,form=ui.form||{},er=ui.errs||{};
+ function val(k,def){return esc(form[k]!==undefined?form[k]:def)}
+ var h='<div class="shell"><section class="hero"><div class="logo">⚖</div><h1>رحلة التاجر: من الفهم القانوني إلى التطبيق العملي</h1><p class="sub">لعبة تعليمية تفاعلية في القانون التجاري الجزائري</p><div class="chips"><span class="chip">المقياس: القانون التجاري</span><span class="chip">الموضوع: الإطار القانوني لصفة التاجر وشروط اكتساب الشركة الصفة التجارية</span><span class="chip">الفئة: متربصو تخصص '+esc(c.specialty)+'</span><span class="chip">'+esc(c.center)+'</span><span class="chip">الأستاذ المشرف: '+esc(c.teacher)+'</span></div></section>';
+ h+='<section class="card"><h2>خريطة الرحلة: ست مراحل</h2><ol style="padding-inline-start:20px;margin:0">'+STAGES.map(function(s){return '<li>'+esc(s.t)+'</li>'}).join('')+'</ol></section>';
+ h+='<section class="card"><h2>نظام التنقيط والقواعد (معلن مسبقًا)</h2>'+rulesHTML(c)+'</section>';
+ if(S.started){
+  h+='<section class="card"><h2>لديك رحلة جارية</h2><p>المتربص: <b>'+esc(t.name)+'</b> — التقدم: '+progress()+'%</p><div class="row"><button class="btn big" data-a="resume">متابعة الرحلة</button><button class="btn ghost" data-a="restart">إعادة بدء اللعبة</button></div></section>';
+ }else{
+  h+='<section class="card"><h2>بيانات المتربص</h2><div class="grid2">'
+  +fld('f_name','الاسم واللقب الكامل',true,val('name',''),er.name)
+  +fld('f_center','مركز التكوين المهني والتمهين',true,val('center',SET.center),er.center)
+  +fld('f_batch','الدفعة',false,val('batch',SET.batch))
+  +fld('f_group','الفوج',false,val('group',SET.group))
+  +fld('f_spec','التخصص',true,val('spec',SET.specialty),er.spec)
+  +fld('f_teacher','اسم الأستاذ المشرف',false,val('teacher',SET.teacher))
+  +'<div class="field"><label for="f_date">تاريخ إجراء النشاط</label><input id="f_date" type="date" value="'+val('date',today())+'"><div class="err"></div></div></div>'
+  +'<p class="muted small">الحقول المعلَّمة بـ <span class="req">*</span> إلزامية. تُحفظ بياناتك في جهازك فقط ولا تُرسل إلى أي خادم.</p><div class="row"><button class="btn big" data-a="start">ابدأ الرحلة التعليمية</button><button class="btn ghost" data-a="openSettings">إعدادات الأستاذ</button></div></section>';
+ }
+ return h+'</div>';
+}
+function fld(id,label,req,val,err){return '<div class="field"><label for="'+id+'">'+label+(req?' <span class="req">*</span>':'')+'</label><input id="'+id+'" type="text" value="'+val+'" autocomplete="off"><div class="err">'+(err?esc(err):'')+'</div></div>'}
+function viewHello(){
+ var t=S.trainee;
+ return '<div class="shell"><section class="hero"><div class="logo">⚖</div><h1>مرحبًا بك يا '+esc(t.name)+' في رحلة التاجر</h1><p class="sub">استعد لاكتشاف القواعد القانونية واختبار قدرتك على تطبيقها في مواقف مهنية واقعية.</p></section><section class="card">'+(S.cfg.mode==='exam'?'<p>الوضع الحالي: <b>اختبار نهائي</b>.</p>':'')+'<p>تذكير بالقواعد:</p>'+rulesHTML(S.cfg)+'<button class="btn big" data-a="hello-go">ابدأ</button></section></div>';
+}
+function viewStage1(){
+ var th=ui.theory,sel=th?th.min:S.cfg.theoryMin;
+ var h='<div class="shell">'+headerHTML()+mapHTML()+'<section class="card"><h2>المرحلة الأولى: اكتشف القاعدة القانونية</h2><p>اقرأ البطاقات التالية (اضغط على العنوان لفتحها) وجرّب أسئلة التحقق السريع. هذه المرحلة غير محتسبة في العلامة.</p>';
+ if(S.cfg.timersOn){
+  h+='<div class="info row sp"><div class="row"><label for="thSel"><b>مؤقت المراجعة (اختياري):</b></label><select id="thSel" data-a="thsel">'+[0,5,10,15].map(function(m){return '<option value="'+m+'"'+(Number(sel)===m?' selected':'')+'>'+(m?m+' دقائق':'بدون حد زمني')+'</option>'}).join('')+'</select>'+(th&&th.dl&&!th.done?'<span class="timer">⏱ <span data-tm="theory" data-dl="'+th.dl+'">--:--</span></span><button class="btn ghost" data-a="thstop">إيقاف المؤقت</button>':'')+'</div>'+(th&&th.done?'<span class="tag gold">انتهى وقت المراجعة المقترح: يمكنك المتابعة أو مواصلة المراجعة</span>':'')+'</div>';
+ }
+ h+=CARDS.map(function(c){var o=!!ui.open[c.id];return '<div class="acc"><button class="hd" data-a="toggle" data-c="'+c.id+'" aria-expanded="'+o+'"><span>'+esc(c.t)+'</span><span>'+(o?'▲':'▼')+'</span></button>'+(o?cardBody(c):'')+'</div>'}).join('');
+ h+='<div class="row" style="margin-top:14px"><button class="btn big teal" data-a="s1done">انتقل إلى التحدي الأول</button>'+(S.s1done?'<span class="tag">المرحلة مكتملة</span>':'')+'</div></section></div>';
+ return h;
+}
+function viewStage(n){
+ var it=itemsOf(n),idx=Math.min(S.pos.idx,it.length-1),mx=maxIdx(n),cur_=it[idx];
+ var h='<div class="shell">'+headerHTML()+mapHTML()+'<section class="card'+(cur_.cls==='scene'?' scene':'')+'"><div class="row sp"><h2>المرحلة '+n+': '+esc(STAGES[n-1].t)+'</h2></div><div class="dots">'+it.map(function(x,i){
+  var c='dot';if(i===idx)c+=' cur';else if(x.k==='q'){var st=QS(x.id);if(st.ph==='done')c+=st.res==='c1'?' ok':(st.res==='c2'?' c2':' bad')}
+  return '<button class="'+c+'" data-a="dot" data-i="'+i+'"'+(i>mx?' disabled':'')+' aria-label="الخطوة '+(i+1)+'">'+(i+1)+'</button>';
+ }).join('')+'</div>';
+ if(cur_.k==='info')h+='<h3>'+esc(cur_.title)+'</h3>'+cur_.html;
+ else h+=questionHTML(QM[cur_.id]);
+ var last=idx===it.length-1,can=cur_.k==='info'||resolved(cur_.id);
+ var nextLabel=last?(n===6?'عرض النتيجة النهائية':'إنهاء المرحلة والانتقال'):'التالي';
+ h+='<div class="row sp" style="margin-top:18px"><button class="btn ghost" data-a="prev"'+(idx===0?' disabled':'')+'>السابق</button><button class="btn" data-a="next"'+(can?'':' disabled')+'>'+nextLabel+'</button></div></section></div>';
+ return h;
+}
+function levelClass(){return ''}
+function resultsBody(){
+ var F=S.final,t=S.trainee,c=S.cfg,names=['','الاكتشاف','تحليل النصوص','التمييز','الحالة العملية','المحاكاة','الاختبار النهائي'];
+ var strong=[],weak=[];
+ Object.keys(F.topics).forEach(function(k){var p=F.topics[k].max?F.topics[k].earn/F.topics[k].max*100:0;if(p>=75)strong.push(k);else if(p<60)weak.push(k)});
+ var h='<table class="rt"><tr><th>الاسم واللقب</th><th>المركز</th><th>الدفعة</th><th>الفوج</th><th>التخصص</th><th>التاريخ</th></tr><tr><td>'+esc(t.name)+'</td><td>'+esc(t.center)+'</td><td>'+esc(t.batch||'—')+'</td><td>'+esc(t.group||'—')+'</td><td>'+esc(t.spec)+'</td><td>'+fmtDate(t.date)+'</td></tr></table>';
+ h+='<div class="grid4" style="margin-top:14px"><div class="kpi"><b>'+num(F.mark)+' / '+F.total+'</b><span>العلامة النهائية</span></div><div class="kpi"><b>'+num(F.pct)+'%</b><span>النسبة المئوية</span></div><div class="kpi"><b>'+esc(F.level)+'</b><span>مستوى الأداء</span></div><div class="kpi"><b>'+F.nAll+'</b><span>عدد الأسئلة المنجزة</span></div></div>';
+ h+='<div class="grid4" style="margin-top:12px"><div class="kpi"><b>'+F.c1+'</b><span>صحيحة من المحاولة الأولى</span></div><div class="kpi"><b>'+F.c2+'</b><span>صحيحة من المحاولة الثانية</span></div><div class="kpi"><b>'+F.f+'</b><span>إجابات خاطئة</span></div><div class="kpi"><b>'+F.both+'</b><span>أسئلة استُنفدت فيها المحاولتان</span></div></div>';
+ h+='<div class="grid2" style="margin-top:12px"><div class="kpi"><b>'+F.hs+'</b><span>مرات الرجوع إلى الملخص</span></div><div class="kpi"><b>'+F.hp+'</b><span>مرات الاستعانة بزميل</span></div></div>';
+ h+='<p class="muted small">العلامة محسوبة على '+F.nGraded+' سؤالًا ('+(c.mode==='exam'?'الاختبار النهائي فقط':(c.formative?'المراحل 2–6':'الاختبار النهائي فقط'))+') بحسب الأوزان المعلنة؛ والاستعانة بالملخص أو الزميل لم تمنح نقاطًا ولم تخصم منها.</p>';
+ h+='<h3>تفصيل المراحل</h3><table class="rt"><tr><th>المرحلة</th><th>الأسئلة</th><th>صحيحة (1)</th><th>صحيحة (2)</th><th>خاطئة</th></tr>'+Object.keys(F.perStage).map(function(k){var p=F.perStage[k];return '<tr><td>'+k+'. '+names[k]+'</td><td>'+p.n+'</td><td>'+p.c1+'</td><td>'+p.c2+'</td><td>'+p.f+'</td></tr>'}).join('')+'</table>';
+ h+='<h3>نقاط القوة</h3>'+(strong.length?'<ul>'+strong.map(function(k){return '<li>'+esc(TOPICS[k].n)+'</li>'}).join('')+'</ul>':'<p class="muted">لا محور بلغ 75% بعد؛ واصل المراجعة.</p>');
+ h+='<h3>محاور تحتاج إلى مراجعة</h3>'+(weak.length?'<ul>'+weak.map(function(k){return '<li><b>'+esc(TOPICS[k].n)+':</b> '+esc(TOPICS[k].tip)+'</li>'}).join('')+'</ul>':'<p class="muted">لا توجد محاور دون 60%. أحسنت.</p>');
+ var shorts=QL.filter(function(q){return q.type==='short'&&reqStages().indexOf(q.stage)>=0});
+ if(shorts.length){h+='<h3>مراجعة الأستاذ: الإجابات القصيرة</h3>'+shorts.map(function(q){var st=QS(q.id);return '<div class="card" style="margin-top:8px;padding:10px 14px"><p><b>'+esc(q.text)+'</b></p><p>إجابة المتربص: '+(st.ans.length?st.ans.map(function(a,i){return '('+(i+1)+') '+esc(a)}).join(' — '):'—')+'</p><p>التصحيح الآلي: '+(st.res==='c1'?'صحيحة من الأولى':(st.res==='c2'?'صحيحة من الثانية':'غير مطابقة للكلمات المفتاحية'))+'</p><p class="small muted">الإجابة النموذجية: '+esc(q.model)+'</p></div>'}).join('')}
+ return h;
+}
+function viewResults(){
+ return '<div class="shell">'+headerHTML()+'<section class="card"><h2>النتيجة النهائية</h2><div class="row"><div class="score">'+num(S.final.mark)+' / '+S.final.total+'</div></div>'+resultsBody()+'<div class="row" style="margin-top:16px"><button class="btn big gold" data-a="viewCert">عرض شهادة الإنجاز</button><button class="btn ghost" data-a="printResults">طباعة ملخص النتائج</button><button class="btn ghost" data-a="restart">إعادة بدء اللعبة</button></div></section></div>';
+}
+function certHTML(){
+ var F=S.final,t=S.trainee,c=S.cfg;
+ return '<div class="cert"><div class="cframe"><div class="cin"><div class="c-logo">⚖</div><div class="c-center">'+esc(t.center)+'</div><div class="c-sub">لعبة تعليمية تفاعلية في القانون التجاري الجزائري</div><h1>شهادة إنجاز في التعلم التفاعلي</h1><p class="c-to">تشهد هذه الوثيقة التعليمية بأن المتربص(ة)</p><div class="c-name">'+esc(t.name)+'</div><p class="c-meta">الدفعة: '+esc(t.batch||'—')+' &nbsp;|&nbsp; الفوج: '+esc(t.group||'—')+' &nbsp;|&nbsp; التخصص: '+esc(t.spec)+'</p><p class="c-body">قد أتمّ(ت) مراحل النشاط التعليمي التفاعلي: <b>«رحلة التاجر: شروط اكتساب الشركة صفة التاجر في القانون التجاري الجزائري»</b></p><div class="c-score"><div>العلامة النهائية: <b>'+num(F.mark)+' / '+F.total+'</b></div><div>النسبة المئوية: <b>'+num(F.pct)+'%</b></div><div>التقدير: <b>'+esc(F.level)+'</b></div></div><div class="c-foot"><div>تاريخ الإنجاز:<br><b>'+fmtDate(t.date)+'</b></div><div>الأستاذ المشرف:<br><b>'+esc(t.teacher)+'</b><div class="sigline"></div>التوقيع</div><div><div class="sealbox">مساحة الختم</div>ختم المؤسسة (عند الاقتضاء)</div></div><div class="c-note">رقم الشهادة (داخلي، متولد محليًا): '+esc(S.certNo)+' — هذه شهادة إنجاز تعليمية صادرة عن النشاط، وليست دبلومًا ولا شهادة اعتماد رسمية.</div></div></div></div>';
+}
+function viewCert(){
+ return '<div class="shell">'+headerHTML()+'<section class="card"><h2>شهادة الإنجاز</h2><div class="row"><button class="btn gold" data-a="printCert">طباعة الشهادة</button><button class="btn teal" data-a="pdfCert">حفظ الشهادة بصيغة PDF</button><button class="btn ghost" data-a="backResults">العودة إلى النتائج</button></div><div class="certWrap" id="certWrap">'+certHTML()+'</div></section></div>';
+}
+function viewSettings(){
+ var c=SET,e=ui.setErr;
+ function n(id,l,v,min,max,u){return '<div class="field"><label for="'+id+'">'+l+'</label><input id="'+id+'" type="number" min="'+min+'" max="'+max+'" value="'+v+'">'+(u?'<span class="muted small">'+u+'</span>':'')+'</div>'}
+ return '<div class="shell"><section class="hero"><h1>لوحة إعدادات الأستاذ</h1><p class="sub">تعديلات محلية في هذا المتصفح، تُطبَّق على الرحلات الجديدة.</p></section><section class="card"><div class="note">هذه اللوحة مخصصة للاستعمال التعليمي المحلي، ولا تمثل نظامًا آمنًا لإدارة الامتحانات الرسمية (لا توجد مصادقة إدارية، ويمكن لمن يملك الجهاز تعديل بيانات المتصفح). لا تظهر اللوحة للمتربص بعد بدء الرحلة، ولا يوجد في الواجهة العادية ما يعدّل العلامة.</div></section>'
+ +'<section class="card"><h2>بيانات النشاط</h2><div class="grid2">'+fld('s_teacher','اسم الأستاذ',false,esc(c.teacher))+fld('s_center','اسم مركز التكوين',false,esc(c.center))+fld('s_batch','الدفعة',false,esc(c.batch))+fld('s_group','الفوج',false,esc(c.group))+fld('s_spec','التخصص',false,esc(c.specialty))+'</div></section>'
+ +'<section class="card"><h2>المؤقتات</h2><label><input type="checkbox" id="s_timers"'+(c.timersOn?' checked':'')+'> تفعيل المؤقتات (إلغاؤه يعطّل جميعها)</label><div class="grid3" style="margin-top:10px"><div class="field"><label for="s_theory">مدة مراجعة الدرس الافتراضية (دقائق)</label><select id="s_theory">'+[0,5,10,15].map(function(m){return '<option value="'+m+'"'+(c.theoryMin===m?' selected':'')+'>'+(m?m:'بدون حد')+'</option>'}).join('')+'</select></div>'+n('s_peer','مدة المساعدة بالزميل (ثانية، 0 = بلا مؤقت)',c.peerSec,0,900)+n('s_ans','مدة الإجابة بعد الخطأ (ثانية، 0 = بلا مؤقت)',c.answerSec,0,1800)+'</div></section>'
+ +'<section class="card"><h2>التنقيط</h2><div class="grid3">'+n('s_total','العلامة القصوى',c.total,5,100)+n('s_second','نسبة علامة المحاولة الثانية (%)',c.secondPct,0,100)+'</div><div class="grid4" style="margin-top:10px">'+n('s_th1','ممتاز من (%)',c.th.excellent,0,100)+n('s_th2','جيد جدًا من (%)',c.th.vgood,0,100)+n('s_th3','جيد من (%)',c.th.good,0,100)+n('s_th4','مقبول من (%)',c.th.ok,0,100)+'</div><label style="display:block;margin-top:10px"><input type="checkbox" id="s_form"'+(c.formative?' checked':'')+'> احتساب أسئلة المراحل 2–5 في العلامة مع الاختبار النهائي (وإلا فالاختبار النهائي وحده)</label></section>'
+ +'<section class="card"><h2>الوضع</h2><label><input type="radio" name="s_mode" value="learn"'+(c.mode==='learn'?' checked':'')+'> الوضع التعليمي: المراحل الست مع المساعدات</label><br><label><input type="radio" name="s_mode" value="exam"'+(c.mode==='exam'?' checked':'')+'> وضع الاختبار النهائي: المرحلة السادسة فقط، بلا مساعدات</label></section>'
+ +(e?'<div class="banner">'+esc(e)+'</div>':'')
+ +'<section class="card"><div class="row"><button class="btn big" data-a="saveSettings">حفظ الإعدادات</button><button class="btn ghost" data-a="resetSettings">استعادة الافتراضي</button><button class="btn ghost" data-a="closeSettings">رجوع</button></div></section>'
+ +'<section class="card"><h2>ملاحظات للأستاذ حول الملف الأصلي</h2><ul class="rules"><li>نص <b>المادة 548</b> غير وارد في الملف (خانة فارغة مخصصة للصق)، لذلك لم تُبنَ عليه أي أسئلة؛ أضِفه شفهيًا إن رغبت.</li><li>سؤالا المناقشة عن <b>الالتزامات المحاسبية</b> و<b>نظام الإفلاس</b> لا جواب لهما في نص الدرس ولا في نموذج الإجابة، فلم يُدرجا في الأسئلة المحتسبة تفاديًا لاختراع أحكام قانونية.</li><li><b>حالة الجار</b> (بيع عارض واحد) ليست ضمن الأخطاء الأربعة في نموذج الإجابة؛ أُدرجت كحالة إضافية بإجابة صحيحة المضمون.</li><li>الأسئلة القصيرة تُصحَّح بالكلمات المفتاحية وتظهر إجابات المتربص في ملخص النتائج لمراجعتك.</li></ul></section></div>';
+}
+function render(){
+ var root=$('#app'),h='';
+ if(S.view==='welcome')h=viewWelcome();
+ else if(S.view==='settings')h=viewSettings();
+ else if(S.view==='hello')h=viewHello();
+ else if(S.view==='results'&&S.final)h=viewResults();
+ else if(S.view==='cert'&&S.final)h=viewCert();
+ else{S.view='play';h=(S.pos.stage===1)?viewStage1():viewStage(S.pos.stage)}
+ root.innerHTML=h;
+ renderModal();
+ if(S.view==='cert')scaleCert();
+ updateTimers();
+ if(ui.scroll){window.scrollTo(0,0);ui.scroll=false}
+}
+function renderModal(){
+ var m=ui.modal,r=$('#modalRoot');
+ if(!m){r.innerHTML='';return}
+ var h='';
+ if(m.t==='card'){var c=CM[m.c];h='<h3>القسم النظري المرتبط: '+esc(c.t)+'</h3>'+c.h+'<p class="muted small">الرجوع إلى الملخص لا يمنحك محاولة إضافية.</p><button class="btn teal" data-a="closeModal">العودة إلى السؤال</button>'}
+ else if(m.t==='peer'){h='<h3>الاستعانة بزميل</h3><p>ناقش السؤال مع زميلك ثم عُد للإجابة بنفسك. هذه المساعدة لا تمنحك محاولة إضافية ولا تُحتسب إجابة صحيحة.</p>'+((S.cfg.timersOn&&S.cfg.peerSec>0)?'<p>الوقت المقترح: <span class="timer">⏱ <span data-tm="peer" data-dl="'+m.dl+'">--:--</span></span></p><p class="small muted" id="peerEnd" style="min-height:1.5em"></p>':'')+'<button class="btn teal" data-a="closeModal">انتهيت — العودة إلى السؤال</button>'}
+ else if(m.t==='restart'){h='<h3>إعادة بدء اللعبة</h3><p>سيؤدي ذلك إلى <b>تصفير جميع النتائج والمحاولات والمساعدات</b> الخاصة بهذه الرحلة، ولا يمكن التراجع. هل تريد المتابعة؟</p><div class="row"><button class="btn danger" data-a="restartYes">نعم، أعد البدء</button><button class="btn ghost" data-a="closeModal">إلغاء</button></div>'}
+ else if(m.t==='pdf'){h='<h3>حفظ الشهادة بصيغة PDF</h3><p>ستُفتح نافذة الطباعة في المتصفح. اختر الوجهة <b>«حفظ بصيغة PDF»</b> (Save as PDF)، واجعل الاتجاه <b>أفقيًا</b> والهوامش افتراضية، ثم احفظ الملف.</p><div class="row"><button class="btn teal" data-a="pdfGo">فتح نافذة الطباعة</button><button class="btn ghost" data-a="closeModal">إلغاء</button></div>'}
+ r.innerHTML='<div class="modalbg" role="dialog" aria-modal="true"><div class="modal">'+h+'</div></div>';
+}
+function scaleCert(){
+ var w=$('#certWrap');if(!w)return;var c=w.firstElementChild;if(!c)return;
+ var full=277*96/25.4,sc=Math.min(1,w.clientWidth/full);
+ c.style.transform='scale('+sc+')';c.style.transformOrigin='top right';
+ w.style.height=(c.offsetHeight*sc)+'px';
+}
+window.addEventListener('resize',scaleCert);
+
+/* ============ الطباعة ============ */
+function doPrint(html,cls){
+ try{
+  var pr=$('#printRoot');pr.innerHTML=html;document.body.className=cls||'';
+  var after=function(){pr.innerHTML='';document.body.className='';window.removeEventListener('afterprint',after)};
+  window.addEventListener('afterprint',after);
+  window.print();
+ }catch(e){toast('تعذّرت الطباعة في هذا المتصفح. جرّب متصفحًا آخر أو افتح الملف من الحاسوب.')}
+}
+
+/* ============ المؤقتات ============ */
+function updateTimers(){
+ var now=Date.now(),els=document.querySelectorAll('[data-tm]');
+ els.forEach(function(el){
+  var dl=Number(el.getAttribute('data-dl')),kind=el.getAttribute('data-tm'),left=dl-now;
+  el.textContent=mmss(left);
+  var box=el.parentElement;if(box&&kind==='ans')box.classList.toggle('low',left<15000);
+  if(left<=0){
+   if(kind==='theory'&&ui.theory&&!ui.theory.done){ui.theory.done=true;ui.theory.dl=0;render()}
+   if(kind==='peer'){var pe=$('#peerEnd');if(pe)pe.textContent='انتهى الوقت المقترح للمساعدة. عُد إلى السؤال.'}
+  }
+ });
+}
+function tick(){
+ if(!S||!S.started)return;
+ var now=Date.now(),ch=false,id;
+ for(id in S.q){var st=S.q[id];if(st.ph==='retry'&&st.dl&&now>st.dl){st.a=2;st.res='f';st.ph='done';st.to=true;st.dl=0;ch=true}}
+ if(ch){save();render()}else updateTimers();
+}
+setInterval(tick,500);
+
+/* ============ الأحداث ============ */
+function goStage(n,keep){
+ S.pos.stage=n;S.view='play';
+ S.pos.idx=(n===1)?0:(stageComplete(n)?0:firstOpenIdx(n));
+ ui.scroll=true;save();render();
+}
+function readSettings(){
+ var g=function(id){return ($('#'+id).value||'').trim()},clamp=function(v,a,b,d){v=Number(v);if(isNaN(v))return d;return Math.max(a,Math.min(b,Math.round(v)))};
+ var s=clone(SET);
+ s.teacher=g('s_teacher')||DEFAULTS.teacher;s.center=g('s_center')||DEFAULTS.center;s.batch=g('s_batch');s.group=g('s_group');s.specialty=g('s_spec')||DEFAULTS.specialty;
+ s.timersOn=$('#s_timers').checked;s.theoryMin=clamp($('#s_theory').value,0,15,0);
+ s.peerSec=clamp($('#s_peer').value,0,900,90);s.answerSec=clamp($('#s_ans').value,0,1800,180);
+ s.total=clamp($('#s_total').value,5,100,20);s.secondPct=clamp($('#s_second').value,0,100,50);
+ s.th={excellent:clamp($('#s_th1').value,0,100,80),vgood:clamp($('#s_th2').value,0,100,70),good:clamp($('#s_th3').value,0,100,60),ok:clamp($('#s_th4').value,0,100,50)};
+ s.formative=$('#s_form').checked;
+ var m=document.querySelector('input[name="s_mode"]:checked');s.mode=m?m.value:'learn';
+ return s;
+}
+function handle(a,t){
+ var q=t.getAttribute('data-q'),i=t.getAttribute('data-i');
+ switch(a){
+  case 'start':{
+   var g=function(id){return ($('#'+id).value||'').trim()};
+   var f={name:g('f_name'),center:g('f_center'),batch:g('f_batch'),group:g('f_group'),spec:g('f_spec'),teacher:g('f_teacher'),date:g('f_date')};
+   var er={};
+   if(f.name.length<3)er.name='أدخل الاسم واللقب كاملين.';
+   if(!f.center)er.center='أدخل اسم المركز.';
+   if(!f.spec)er.spec='أدخل التخصص.';
+   if(Object.keys(er).length){ui.errs=er;ui.form=f;render();toast('أكمل الحقول الإلزامية.');return}
+   f.teacher=f.teacher||SET.teacher;f.date=f.date||today();
+   S=freshState();S.started=true;S.trainee=f;S.cfg=clone(SET);S.view='hello';
+   ui.errs=null;ui.form=null;ui.draft={};ui.qc={};ui.open={};ui.theory=null;ui.scroll=true;save();render();return}
+  case 'hello-go':S.view='play';S.pos.stage=(S.cfg.mode==='exam')?6:1;S.pos.idx=0;ui.scroll=true;save();render();return;
+  case 'resume':if(S.final){S.view='results'}else{S.view='play';if(S.pos.stage!==1&&stageStatus(S.pos.stage)==='locked')S.pos.stage=1}ui.scroll=true;render();return;
+  case 'openSettings':S.view='settings';ui.setErr=null;ui.scroll=true;render();return;
+  case 'closeSettings':S.view='welcome';ui.scroll=true;render();return;
+  case 'saveSettings':{
+   var s=readSettings();
+   if(!(s.th.excellent>=s.th.vgood&&s.th.vgood>=s.th.good&&s.th.good>=s.th.ok)){ui.setErr='يجب أن تكون حدود التقديرات متناقصة: ممتاز ≥ جيد جدًا ≥ جيد ≥ مقبول.';render();return}
+   SET=s;lsSet(CK,SET);S.view='welcome';ui.setErr=null;ui.scroll=true;toast('تم حفظ الإعدادات.');render();return}
+  case 'resetSettings':SET=clone(DEFAULTS);lsSet(CK,SET);render();toast('أُعيدت الإعدادات الافتراضية.');return;
+  case 'goStage':goStage(Number(t.getAttribute('data-n')));return;
+  case 'toggle':{var c=t.getAttribute('data-c');ui.open[c]=!ui.open[c];render();return}
+  case 'qc':ui.qc[t.getAttribute('data-c')]=Number(i);render();return;
+  case 'thsel':return;
+  case 'thstop':ui.theory=null;render();return;
+  case 's1done':S.s1done=true;ui.theory=null;save();goStage(2);return;
+  case 'dot':{var di=Number(i);if(di<=maxIdx(S.pos.stage)){S.pos.idx=di;ui.scroll=true;save();render()}return}
+  case 'prev':if(S.pos.idx>0){S.pos.idx--;ui.scroll=true;save();render()}return;
+  case 'next':{
+   var it=itemsOf(S.pos.stage),cu=it[S.pos.idx];
+   if(cu.k==='q'&&!resolved(cu.id)){toast('أجب عن السؤال أولًا.');return}
+   if(S.pos.idx<it.length-1){S.pos.idx++;ui.scroll=true;save();render();return}
+   // آخر عنصر
+   var n=S.pos.stage;if(!stageComplete(n)){toast('أكمل جميع أسئلة المرحلة.');return}
+   if(n===6){finalize();ui.scroll=true;render();return}
+   goStage(n+1);return}
+  case 'pick':ui.draft[q]=Number(i);render();return;
+  case 'tog':{var d=ui.draft[q]||[],k=d.indexOf(Number(i));if(k>=0)d.splice(k,1);else d.push(Number(i));ui.draft[q]=d;render();return}
+  case 'check':submit(q);return;
+  case 'retry':startRetry(q);return;
+  case 'help-sum':{var st=QS(q);if(st.ph==='wrong1'){st.hs++;save();ui.modal={t:'card',c:QM[q].card,q:q};renderModal()}return}
+  case 'help-peer':{var st2=QS(q);if(st2.ph==='wrong1'){st2.hp++;save();ui.modal={t:'peer',q:q,dl:(S.cfg.timersOn&&S.cfg.peerSec>0)?Date.now()+S.cfg.peerSec*1000:0};renderModal();updateTimers()}return}
+  case 'closeModal':ui.modal=null;renderModal();return;
+  case 'sortpick':{var dq=ui.draft[q]||{},ii=Number(i);if(dq[ii]!==undefined){delete dq[ii];ui.draft[q]=dq;ui.sortSel[q]=null}else{ui.sortSel[q]=(ui.sortSel[q]===ii)?null:ii}render();return}
+  case 'sortplace':{var sp=ui.sortSel[q];if(sp!==null&&sp!==undefined){var dd=ui.draft[q]||{};dd[sp]=Number(t.getAttribute('data-c'));ui.draft[q]=dd;ui.sortSel[q]=null;render()}return}
+  case 'viewCert':if(!S.final){toast('أنهِ الاختبار أولًا.');return}S.view='cert';ui.scroll=true;save();render();return;
+  case 'backResults':S.view='results';ui.scroll=true;save();render();return;
+  case 'printCert':if(!S.final){toast('أنهِ الاختبار أولًا.');return}doPrint(certHTML(),'');return;
+  case 'pdfCert':if(!S.final){toast('أنهِ الاختبار أولًا.');return}ui.modal={t:'pdf'};renderModal();return;
+  case 'pdfGo':ui.modal=null;renderModal();doPrint(certHTML(),'');return;
+  case 'printResults':doPrint('<div class="docprint" dir="rtl"><h2>ملخص نتائج «رحلة التاجر»</h2>'+resultsBody()+'<p class="muted small">رقم داخلي: '+esc(S.certNo)+'</p></div>','pr-doc');return;
+  case 'restart':ui.modal={t:'restart'};renderModal();return;
+  case 'restartYes':{lsDel(SK);S=freshState();ui.draft={};ui.qc={};ui.open={};ui.theory=null;ui.modal=null;ui.sortSel={};ui.scroll=true;render();return}
+ }
+}
+var appEl=$('#app'),modEl=$('#modalRoot');
+function onClick(e){
+ var t=e.target.closest('[data-a]');if(!t||t.disabled)return;
+ var a=t.getAttribute('data-a');
+ if(a==='sel'||a==='txt'||a==='thsel')return;
+ handle(a,t);
+}
+appEl.addEventListener('click',onClick);
+modEl.addEventListener('click',onClick);
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ui.modal&&ui.modal.t!=='restart'){ui.modal=null;renderModal()}});
+appEl.addEventListener('change',function(e){
+ var t=e.target;if(!t.getAttribute)return;var a=t.getAttribute('data-a');
+ if(a==='sel'){var q=t.getAttribute('data-q'),i=Number(t.getAttribute('data-i')),d=ui.draft[q]||{};if(t.value==='')delete d[i];else d[i]=Number(t.value);ui.draft[q]=d}
+ else if(a==='thsel'){var m=Number(t.value);if(m>0){ui.theory={min:m,dl:Date.now()+m*60000,done:false}}else{ui.theory={min:0,dl:0,done:false}}render()}
+});
+appEl.addEventListener('input',function(e){var t=e.target;if(t.getAttribute&&t.getAttribute('data-a')==='txt'){ui.draft[t.getAttribute('data-q')]=t.value}});
+/* سحب وإفلات */
+appEl.addEventListener('dragstart',function(e){var t=e.target.closest('[data-a="sortpick"]');if(!t)return;try{e.dataTransfer.setData('text/plain',t.getAttribute('data-q')+':'+t.getAttribute('data-i'));e.dataTransfer.effectAllowed='move'}catch(x){}});
+appEl.addEventListener('dragover',function(e){if(e.target.closest('[data-drop]'))e.preventDefault()});
+appEl.addEventListener('drop',function(e){
+ var z=e.target.closest('[data-drop]');if(!z)return;e.preventDefault();
+ var p;try{p=(e.dataTransfer.getData('text/plain')||'').split(':')}catch(x){return}
+ if(p.length!==2||p[0]!==z.getAttribute('data-q'))return;
+ var q=p[0],i=Number(p[1]),d=ui.draft[q]||{},dz=z.getAttribute('data-drop');
+ if(dz==='pool')delete d[i];else d[i]=Number(dz);
+ ui.draft[q]=d;ui.sortSel[q]=null;render();
+});
+
+/* ============ إقلاع ============ */
+// فحص انتهاء مؤقتات الإجابة أثناء غياب الصفحة
+if(S.started){var _now=Date.now();for(var _id in S.q){var _s=S.q[_id];if(_s.ph==='retry'&&_s.dl&&_now>_s.dl){_s.a=2;_s.res='f';_s.ph='done';_s.to=true;_s.dl=0}}save()}
+if(S.view==='settings')S.view='welcome';
+render();
+
+/* واجهة اختبار داخلية (لا تؤثر على الاستعمال العادي) */
+window.__RT={QM:QM,QL:QL,S:function(){return S},grade:grade,gradeShort:gradeShort,computeFinal:computeFinal};
+})();
+</script>
+
+
+</body></html>
